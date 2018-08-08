@@ -1,0 +1,51 @@
+	
+body{
+	background: #F3F2EF; /*454445   */
+}
+
+header{
+	margin:0;
+	left: 0;
+}
+
+div.bienv{
+	background-color: green;
+	text-align: center;
+}
+
+.contenedor{
+	margin: 0;
+	width: 100%;
+	background: #FF5729;/* 558391 558391 #AA1611 */ 
+	height: 80px;
+	border-radius: 5px;
+	text-align: center;
+	padding: 5px;
+	color: white;
+}
+
+#conten1{
+	margin-top: 2em;
+}
+
+#formular{
+	margin: 0;
+	padding: 0;
+	margin-top: 3em;
+}
+
+p{
+	font-size: 2em;
+}
+
+@media screen and (max-width: 700px) {
+  	h1 {
+    	/*display: none;*/
+    	font-size: 2em;
+    	margin-top: 0.5em;
+    }
+
+  	p{
+  		font-size: 1.5em;
+  	}
+}
