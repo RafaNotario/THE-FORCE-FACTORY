@@ -66,7 +66,10 @@ div.#frm-muestra{
             <datalist id="json-datalist"></datalist>
           </div>
         </div>
-      </form>  
+      </form> 
+
+
+      <span id="resultado"></span> 
 <br>
 
  <form>
@@ -140,36 +143,21 @@ div.#frm-muestra{
 
         <script type="text/javascript">
 
-        function DevJson(idCli,obj){
-          for (var i = obt.length - 1; i >= 0; i--) {
-              var option = document.createElement('option');              
-              option.value = obt[i]['id_cli']+"."+obt[i]['nombre']+" "+obt[i]['apellidos'];
-              dataList.appendChild(option);
-            }
-
-        }
-
         var dataList = document.getElementById('json-datalist');
-        var bandera = true;
-        var cad = "";
-        var srray = new Array();
-
-        var obt =null;
-        var vari2 = null;
 
         $('#busq').keyup(function(tecla){
 
         var Chcode = Number(tecla.which);
-        if( (Number(Chcode) > 64) && (Number(Chcode) < 91) || (Number(Chcode) === 13)) 
+
+
+          var term = $("#busq").val();
+
+        if( term != ""  )//(Number(Chcode) > 64) && (Number(Chcode) < 91) 
         {
 
         $(dataList).empty();//datalist convertido a objeto jquery
 
-        console.log("ln 86 charcode -> "+Chcode);
 
-          var term = $("#busq").val();
-
-          var idC ="";
 
 //          console.log("term ->"+term);
 
@@ -184,17 +172,18 @@ div.#frm-muestra{
             success : function(data,status){
             //  alert("Yaaaaaa!!!");
             obt = JSON.parse(data);
-
             //var leng = obt.length;
             //ciclo para recorrer el arreglo
             for (var i = obt.length - 1; i >= 0; i--) {
               var option = document.createElement('option');              
-              option.value = obt[i]['id_cli']+"."+obt[i]['nombre']+" "+obt[i]['apellidos'];
+              option.value = obt[i]['nombre']+" "+obt[i]['apellidos'];
               dataList.appendChild(option);
-           
             }
 
-            console.log("obj -> "+data);
+            $("#resultado").html(data);
+
+
+            console.log("obj -> "+data+"ln = 179");
 
             },
             error : function(xhr,status){
@@ -202,26 +191,14 @@ div.#frm-muestra{
             },
             complete: function(xhr,status){
 
-              if (Number(Chcode) === 13) {
-                cad=$('#busq').val();
-                srray = cad.split('.')
-   //             alert("#CADENAS->"+srray[0]);
-                bandera = false;
-
-          
-
-              }
-
-
             }
           });//
 
 }else{
-    console.log("ln 84 if Oprimio -> "+Chcode);
+//    console.log("ln 84 if Oprimio -> "+Chcode);
   }
 
-if (!bandera) {}
-
 });
+
 </script>
 
