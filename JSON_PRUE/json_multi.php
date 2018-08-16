@@ -19,6 +19,7 @@ if(!$result = $mysqli->query($query)) die();
 
 while($row = mysqli_fetch_array($result))
     {
+    
         $response[$i] = $row;
         $i++;
     }

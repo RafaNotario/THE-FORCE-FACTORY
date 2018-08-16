@@ -13,18 +13,21 @@ $consultaBusqueda = str_replace($caracteres_malos, $caracteres_buenos, $var);
 if(isset($consultaBusqueda))
 {
 
-$query = "SELECT id_cli,nombre,apellidos,nick,direccion FROM cliente WHERE nombre LIKE '".$consultaBusqueda."%' ";
+$query = "SELECT id_cli,nombre,apellidos,nick,direccion,foto FROM cliente WHERE CONCAT(nombre,' ',apellidos) LIKE '".$consultaBusqueda."%' ";
 //SELECT * FROM cliente WHERE id_cli = 1 -> id_cli,nombre,apellidos,nick,direccion,celular,correo,rfc,fechaInicio,foto
 
 $response = array();
 
 $arra = array();
 $i=0;
+
 if (!$result = $mysqli->query($query)) die();
 
 while($row = mysqli_fetch_array($result))
     {
+    	$row['foto'] = base64_encode($row['foto']);
         $response[$i] = $row;
+
         $i++;
     }
 	
@@ -32,6 +35,7 @@ while($row = mysqli_fetch_array($result))
 //$response['query'] = $query;
 //$response['foto'] = base64_encode($response['foto']);
 
+//$response['foto'] = base64_encode($response['foto']);
 echo json_encode($response);
 
 /*

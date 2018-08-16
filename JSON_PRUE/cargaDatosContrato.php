@@ -10,6 +10,12 @@ div.#frm-muestra{
   text-align: center;
 }
 
+div.info-consulta{
+  width: 100vw;
+  margin-top: 20px;
+  background-color:black;
+}
+
 @media only screen and (max-width: 600px) {
     .flotForm{
         background-color: lightblue;
@@ -71,7 +77,7 @@ div.#frm-muestra{
 
       <span id="resultado"></span> 
 <br>
-
+<div class = "info-consulta">
  <form>
     <div class="form-group col-md-3 col-sm-3 ajust">
       <img class="img-responsive img-circle" id="imgn" alt="SIN IMAGEN" src="img/Mp.jpg">
@@ -88,12 +94,12 @@ div.#frm-muestra{
 
     <div class="form-group">
     <label for="inputAddress2">Nick Name</label>
-    <input type="text" class="form-control" id="inputAddress2" placeholder="Apartment, studio, or floor">
+    <input type="text" class="form-control" id="nick">
   </div>
 
   <div class="form-group">
     <label for="inputAddress3">Direccion</label>
-    <input type="text" class="form-control" id="inputAddress3" placeholder="Apartment, studio, or floor">
+    <input type="text" class="form-control" id="direcc" >
   </div>
 
 </div>
@@ -137,29 +143,23 @@ div.#frm-muestra{
   </div>
 </div>
 </form>
+
+</div><!-- .info-consulta -->
 </html>
 
 <!-- ~~~ TERMINA CODIGO NUEVOO -->
-
         <script type="text/javascript">
 
+        window.onload =$(".info-consulta").hide();
         var dataList = document.getElementById('json-datalist');
 
         $('#busq').keyup(function(tecla){
 
         var Chcode = Number(tecla.which);
+        var term = $("#busq").val();
 
-
-          var term = $("#busq").val();
-
-        if( term != ""  )//(Number(Chcode) > 64) && (Number(Chcode) < 91) 
+        if( (Number(Chcode) > 64) && (Number(Chcode) < 91) || (Number(Chcode) === 13))// 
         {
-
-        $(dataList).empty();//datalist convertido a objeto jquery
-
-
-
-//          console.log("term ->"+term);
 
           $.ajax({
             url : "pruebas/busqkeyUp.php",
@@ -170,9 +170,11 @@ div.#frm-muestra{
             contentType : false,
 
             success : function(data,status){
-            //  alert("Yaaaaaa!!!");
-            obt = JSON.parse(data);
-            //var leng = obt.length;
+
+        $("#json-datalist").empty();//datalist convertido a objeto jquery
+            
+            obt = JSON.parse(data);//parseo de JSON a objeto JS
+
             //ciclo para recorrer el arreglo
             for (var i = obt.length - 1; i >= 0; i--) {
               var option = document.createElement('option');              
@@ -182,20 +184,27 @@ div.#frm-muestra{
 
             $("#resultado").html(data);
 
+            if (obt.length === 1 ) {
+              $("#nmb").val(obt[0].nombre+" "+obt[0].apellidos);
+              $("#nick").val(obt[0].nick);
+              $("#direcc").val(obt[0].direccion);
 
-            console.log("obj -> "+data+"ln = 179");
+              $(".info-consulta").show();
+
+            }
+//            console.log("obj -> "+obt.length+" ln = 179");
 
             },
             error : function(xhr,status){
-              alert('Ha ocurrido un puto error de mierdaaa');
+              alert('Ha ocurrido un error ln -193');
             },
             complete: function(xhr,status){
-
+            
             }
           });//
 
 }else{
-//    console.log("ln 84 if Oprimio -> "+Chcode);
+    console.log("ln 84 if Oprimio -> "+Chcode);
   }
 
 });
