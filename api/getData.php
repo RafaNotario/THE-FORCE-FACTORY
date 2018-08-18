@@ -10,7 +10,7 @@ $start_from = ($page-1) * $num_rec_per_page;
 $sqlTotal = "SELECT * FROM items";
 //$sql = "SELECT * FROM items Order By id desc LIMIT $start_from, $num_rec_per_page"; 
 
-$result = $conex->query($sqlTotal);
+$result = $mysqli->query($sqlTotal);
 
   while($row = $result->fetch_assoc()){
      $json[] = $row;
@@ -18,7 +18,7 @@ $result = $conex->query($sqlTotal);
 
   $data['data'] = $json;
 
-$result =  mysqli_query($conex,$sqlTotal);
+$result =  mysqli_query($mysqli,$sqlTotal);
 
 $data['total'] = mysqli_num_rows($result);
 

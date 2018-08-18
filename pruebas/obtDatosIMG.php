@@ -9,17 +9,34 @@ $lista = "";
 
 $var1 = "";
 
-$query = "SELECT * FROM cliente where id_cli = '2' ";
+$query = "SELECT * FROM cliente";
 //SELECT * FROM cliente WHERE id_cli = 1 ,nombre,apellidos,nick,direccion,celular,correo,rfc,
 
 $response = array();
+$arreglo = array();
+
+$resultado=$mysqli->query($query);
+$i = 0;
+while ($rows = $resultado->fetch_assoc()) {
+
+	$rows['foto'] = base64_encode($rows['foto']);
+
+	$arreglo[$i] = $rows;
+	$i++;
+}
+
+for ($i=0; $i < $arreglo.lenght ; $i++) { 
+print($arreglo[i]);
+	# code...
+}
 
 if($resultado = $mysqli->query($query)) {
 //     $formulario = mysqli_fetch_array($resultado, MYSQLI_ASSOC);
 	$response = mysqli_fetch_array($resultado, MYSQLI_ASSOC);
 }
 
-$var1 = $response['id_cli'];
+
+
 
 ?>
 

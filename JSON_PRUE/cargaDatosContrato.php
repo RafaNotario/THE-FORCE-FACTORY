@@ -80,7 +80,7 @@ div.info-consulta{
 <div class = "info-consulta">
  <form>
     <div class="form-group col-md-3 col-sm-3 ajust">
-      <img class="img-responsive img-circle" id="imgn" alt="SIN IMAGEN" src="img/Mp.jpg">
+      <img class="img-responsive img-circle" id="imgn2" alt="USUARIO" src="img/Mp.jpg" width="200px">
     </div>
 
 <div class="flotForm col-sm-9 col-md-7 col-xs-5 col-lg-4">
@@ -113,7 +113,7 @@ div.info-consulta{
 
     <div class="form-group col-md-6">
       <label for="inputCity">City</label>
-      <input type="text" class="form-control" id="inputCity">
+      <input type="text" class="form-control" id="fech">
     </div>
 
     <div class="form-group col-md-4">
@@ -152,16 +152,19 @@ div.info-consulta{
 
         window.onload =$(".info-consulta").hide();
         var dataList = document.getElementById('json-datalist');
+       
+        var peticion2 = null;/*variable para consulta con PROMISE*/
 
         $('#busq').keyup(function(tecla){
 
         var Chcode = Number(tecla.which);
         var term = $("#busq").val();
 
+/*Chequeamos que solo ingrese letras y enter para realizar la consulta*/
         if( (Number(Chcode) > 64) && (Number(Chcode) < 91) || (Number(Chcode) === 13))// 
         {
 
-          $.ajax({
+          var promise = $.ajax({
             url : "pruebas/busqkeyUp.php",
             type : "GET",
             dataType : "HTML",
@@ -173,7 +176,7 @@ div.info-consulta{
 
         $("#json-datalist").empty();//datalist convertido a objeto jquery
             
-            obt = JSON.parse(data);//parseo de JSON a objeto JS
+            var obt = JSON.parse(data);//parseo de JSON a objeto JS
 
             //ciclo para recorrer el arreglo
             for (var i = obt.length - 1; i >= 0; i--) {
@@ -182,18 +185,16 @@ div.info-consulta{
               dataList.appendChild(option);
             }
 
-            $("#resultado").html(data);
+          //  $("#resultado").html(data);
 
             if (obt.length === 1 ) {
+              peticion2 = obt[0].id_cli;
+
               $("#nmb").val(obt[0].nombre+" "+obt[0].apellidos);
               $("#nick").val(obt[0].nick);
               $("#direcc").val(obt[0].direccion);
-
               $(".info-consulta").show();
-
             }
-//            console.log("obj -> "+obt.length+" ln = 179");
-
             },
             error : function(xhr,status){
               alert('Ha ocurrido un error ln -193');
@@ -202,6 +203,16 @@ div.info-consulta{
             
             }
           });//
+
+          promise.then(function(){
+            if (peticion2 != null) {
+              $.post("Modales/formularioLL.php",{param:peticion2},function(data,status){
+                
+                    var user = JSON.parse(data);
+                    $("#imgn2").attr("src", "data:image/png;base64,"+user.foto);
+              });
+            }
+          });
 
 }else{
     console.log("ln 84 if Oprimio -> "+Chcode);
