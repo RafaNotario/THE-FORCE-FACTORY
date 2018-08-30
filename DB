@@ -1,0 +1,30 @@
+itp sap 
+
+28 septiembre
+
+viernes sabado 5-9 8-1
+
+$ 19,000
+ 
+inscripcion mensual 5 mesess
+
+11 quincenas 
+
+becas 15 000
+
+CREATE TABLE contrato (
+id_contrato INT NOT NULL AUTO_INCREMENT,
+id_cli INT NOT NULL,
+id_concepto INT NOT NULL,
+fecha_contrato DATE DEFAULT '0000-00-00' ,
+mes_ini VARCHAR(20),
+PRIMARY KEY(id_contrato)
+)ENGINE=InnoDB; 
+
+
+CREATE TABLE conceptos(
+id_concepto INT AUTO_INCREMENT,
+descripcion VARCHAR(55),
+costo DOUBLE(5,1),
+PRIMARY KEY(id_concepto)
+)ENGINE=InnoDB;

@@ -11,20 +11,29 @@ div.#frm-muestra{
 }
 
 div.info-consulta{
-  width: 100vw;
+  width: 95%;
   margin-top: 20px;
-  background-color:black;
 }
 
-@media only screen and (max-width: 600px) {
+
+@media only scren and (min-width: 480px){
+  div.info-consulta{
+    width: 100%;
+    margin-top: 10px;
+    background-color:blue;
+  }
+}
+
+@media only screen and (min-width:  768px) {
     .flotForm{
-        background-color: lightblue;
-        width: 100%;
+        width: 70%;
+        float: right;
+        display: inline-block;
     }
 
     .ajust{
     margin: 0 auto;
-    width: 70%;
+    width: 30%;
     padding-bottom: 20px;
   }
 }
@@ -80,10 +89,10 @@ div.info-consulta{
 <div class = "info-consulta">
  <form>
     <div class="form-group col-md-3 col-sm-3 ajust">
-      <img class="img-responsive img-circle" id="imgn2" alt="USUARIO" src="img/Mp.jpg" width="200px">
+      <img class="img-responsive" id="imgn2" alt="USUARIO" src="img/Mp.jpg" width="200px">
     </div>
 
-<div class="flotForm col-sm-9 col-md-7 col-xs-5 col-lg-4">
+<div class="flotForm col-sm-10 col-md-7 col-lg-7">
 
   <div class="form-group">
     <label for="nmb">Nombre: </label>
@@ -98,35 +107,55 @@ div.info-consulta{
   </div>
 
   <div class="form-group">
-    <label for="inputAddress3">Direccion</label>
-    <input type="text" class="form-control" id="direcc" >
+    <label for="direcc">Direccion</label>
+    <input type="text" class="form-control" id="direcc" name="direcc">
   </div>
 
 </div>
 
-  <div class="form-group">
-    <label for="drn">Direccion: </label>
-    <input type="text" class="form-control" id="drn">
-  </div>
-
  <div class="form-row">
 
-    <div class="form-group col-md-6">
-      <label for="inputCity">City</label>
-      <input type="text" class="form-control" id="fech">
+    <div class="form-group col-md-4">
+      <label for="fechInscr">Fecha de Inscripcion</label>
+      <input type="text" id="fechInscr"class="form-control" name="fechInscr" value="<?php echo date('d-m-Y')?>">
     </div>
 
     <div class="form-group col-md-4">
-      <label for="inputState">State</label>
+      <label for="inputState">MES:</label>
       <select id="inputState" class="form-control">
-        <option selected>Choose...</option>
-        <option>...</option>
+        <option value="1">ENERO</option>
+        <option value="2">FEBRERO</option>
+        <option value="3">MARZO</option>
+        <option value="4">ABRIL</option>
+        <option value="5">MAYO</option>
+        <option value="6">JUNIO</option>
+        <option value="7">JULIO</option>
+        <option value="8">AGOSTO</option>
+        <option value="9">SEPTIEMBRE</option>
+        <option value="10">OCTUBRE</option>
+        <option value="11">NOVIEMBRE</option>
+        <option value="12">DICIEMBRE</option>
+
       </select>
     </div>
 
-    <div class="form-group col-md-2">
-      <label for="inputZip">Zip</label>
-      <input type="text" class="form-control" id="inputZip">
+    <div class="form-group col-md-4">
+       <label for="concept">Concepto:</label>
+      <select id="concept" class="form-control">
+        <option value="1">ENERO</option>
+        <option value="2">FEBRERO</option>
+        <option value="3">MARZO</option>
+        <option value="4">ABRIL</option>
+        <option value="5">MAYO</option>
+        <option value="6">JUNIO</option>
+        <option value="7">JULIO</option>
+        <option value="8">AGOSTO</option>
+        <option value="9">SEPTIEMBRE</option>
+        <option value="10">OCTUBRE</option>
+        <option value="11">NOVIEMBRE</option>
+        <option value="12">DICIEMBRE</option>
+
+      </select>
     </div>
 
   </div>
@@ -136,12 +165,16 @@ div.info-consulta{
     <div class="form-check">
       <input class="form-check-input" type="checkbox" id="gridCheck">
       <label class="form-check-label" for="gridCheck">
-        Check me out
+        Enviar por Correo
       </label>
     </div>
-      <button type="submit" class="btn btn-primary">Sign in</button>
+
+
+      <button type="submit" class="btn btn-primary">GUARDAR</button>
   </div>
+
 </div>
+
 </form>
 
 </div><!-- .info-consulta -->
@@ -150,7 +183,8 @@ div.info-consulta{
 <!-- ~~~ TERMINA CODIGO NUEVOO -->
         <script type="text/javascript">
 
-        window.onload =$(".info-consulta").hide();
+        //window.onload =$(".info-consulta").hide();
+
         var dataList = document.getElementById('json-datalist');
        
         var peticion2 = null;/*variable para consulta con PROMISE*/
@@ -193,14 +227,14 @@ div.info-consulta{
               $("#nmb").val(obt[0].nombre+" "+obt[0].apellidos);
               $("#nick").val(obt[0].nick);
               $("#direcc").val(obt[0].direccion);
+
               $(".info-consulta").show();
             }
             },
-            error : function(xhr,status){
+              error : function(xhr,status){
               alert('Ha ocurrido un error ln -193');
             },
-            complete: function(xhr,status){
-            
+              complete: function(xhr,status){
             }
           });//
 
