@@ -78,7 +78,8 @@ div.info-consulta{
       <span id="resultado"></span> 
 <br>
 <div class = "info-consulta">
- <form>
+
+ <form action="../THE-FORCE-FACTORY/report/report1.php">
     <div class="form-group col-md-3 col-sm-3 ajust">
       <img class="img-responsive img-circle" id="imgn2" alt="USUARIO" src="img/Mp.jpg" width="200px">
     </div>
@@ -87,32 +88,28 @@ div.info-consulta{
 
   <div class="form-group">
     <label for="nmb">Nombre: </label>
-    <input type="text" class="form-control" id="nmb">
+    <input type="text" class="form-control" id="nmb" name="titulo">
   </div>
 
   <div class="form-row">
 
     <div class="form-group">
-    <label for="inputAddress2">Nick Name</label>
+    <label for="nick">Nick Name</label>
     <input type="text" class="form-control" id="nick">
   </div>
 
   <div class="form-group">
-    <label for="inputAddress3">Direccion</label>
+    <label for="direcc">Direccion</label>
     <input type="text" class="form-control" id="direcc" >
   </div>
 
 </div>
 
-  <div class="form-group">
-    <label for="drn">Direccion: </label>
-    <input type="text" class="form-control" id="drn">
-  </div>
 
  <div class="form-row">
 
     <div class="form-group col-md-6">
-      <label for="inputCity">City</label>
+      <label for="inputCity">Fecha Inscripcion</label>
       <input type="text" class="form-control" id="fech">
     </div>
 
@@ -139,7 +136,7 @@ div.info-consulta{
         Check me out
       </label>
     </div>
-      <button type="submit" class="btn btn-primary">Sign in</button>
+      <button type="submit" class="btn btn-primary" formmethod="post" formtarget="_blank" name="contrato">Sign in</button>
   </div>
 </div>
 </form>
@@ -154,6 +151,7 @@ div.info-consulta{
         var dataList = document.getElementById('json-datalist');
        
         var peticion2 = null;/*variable para consulta con PROMISE*/
+        $('#busq').focus();
 
         $('#busq').keyup(function(tecla){
 
