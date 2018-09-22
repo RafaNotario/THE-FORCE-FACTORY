@@ -109,13 +109,13 @@ div.info-consulta{
  <div class="form-row">
 
     <div class="form-group col-md-6">
-      <label for="inputCity">Fecha Inscripcion</label>
+      <label for="fech">Fecha Inscripcion</label>
       <input type="text" class="form-control" id="fech">
     </div>
 
     <div class="form-group col-md-4">
-      <label for="inputState">State</label>
-      <select id="inputState" class="form-control">
+      <label for="concept">Concepto</label>
+      <select id="concept" class="form-control">
         <option selected>Choose...</option>
         <option>...</option>
       </select>
