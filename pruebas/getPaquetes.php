@@ -26,7 +26,7 @@
 
             var paq = JSON.parse(data);
 
-            $("#clav").val(paq.clave);
+            $("#clav").val(paq.id_concepto);
             $("#desc").val(paq.descripcion);
             $("#cost").val(paq.costo);
 
@@ -113,7 +113,7 @@
 
 include("../Modales/prueba1.php");
 
-$sql2="SELECT * FROM paquete";
+$sql2="SELECT * FROM conceptos";
 
 if (!$result = $mysqli->query($sql2)) {
         exit(mysqli_error($mysqli));
@@ -125,7 +125,7 @@ if (!$result = $mysqli->query($sql2)) {
 <th>CLAVE</th>
 <th>DESCRIPCION</th>
 <th>COSTO</th>
-<th>OTRO</th>
+
 </tr>
 
 
@@ -133,7 +133,7 @@ if (!$result = $mysqli->query($sql2)) {
 while($row = mysqli_fetch_array($result)) {
 ?>
     <tr>
-    <td class="numero"> <?php echo $row['clave']; ?> </td>
+    <td class="numero"> <?php echo $row['id_concepto']; ?> </td>
     <td> <?php echo $row['descripcion'];?> </td>
     <td> <?php echo $row['costo'];?>  </td>
 
@@ -172,7 +172,7 @@ CODIGO PARA MODAL
             <div class="modal-body">
 
                 <div class="form-group">
-                    <label for="clav">CLAVE</label>
+                    <label for="clav">ID</label>
                     <input type="text" id="clav" placeholder="Clave de paquete" class="form-control"/>
                 </div>
 

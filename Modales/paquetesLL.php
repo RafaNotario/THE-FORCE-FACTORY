@@ -8,7 +8,7 @@ if(isset($_POST['param']) && isset($_POST['param']) != "")
 
 $var = $_POST['param'];
 
-$query = "SELECT * FROM paquete where clave = '".$var."' ";
+$query = "SELECT * FROM conceptos where id_concepto = '".$var."' ";
 //SELECT * FROM cliente WHERE id_cliente = 1
 
 $response = array();

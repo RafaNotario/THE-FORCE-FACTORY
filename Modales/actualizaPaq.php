@@ -7,11 +7,10 @@ include("prueba1.php");
 	{
 
 		$clap = $_POST['claP'];
-
 		$desp =  $_POST['desP'];
         $cosp = $_POST['cosP'];
 
-$query = "UPDATE paquete SET descripcion = '".$desp."', costo = '".$cosp."' WHERE clave = '".$clap."'";
+$query = "UPDATE conceptos SET descripcion = '".$desp."', costo = '".$cosp."' WHERE id_concepto = '".$clap."'";
 //SELECT * FROM cliente WHERE id_cliente = 1
 
 

@@ -3,7 +3,7 @@
   <html lang="es">
   <head>
 
-  <title> Ventana de altas </title>
+  
 
   <link href="//cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/css/toastr.min.css" rel="stylesheet">
 
@@ -21,9 +21,14 @@
       $("#conten").load("contenidoAltas/altaClientes.php");
     }
 
-    function altaAntenas(){
+    function altaInstructores(){
     //  toastr.success('Alta de Comidas.', 'Opcion 2', {timeOut: 1500});
-      $("#conten").load("contenidoAltas/altaAntenas.php");
+      $("#conten").load("contenidoAltas/altaInstructores.php");
+    }
+
+    function altaConceptos(){
+
+      $('#conten').load("contenidoAltas/altaConceptos.php");
     }
 
   </script>
@@ -47,18 +52,23 @@
 
 <div class="container">
   <div class="row">
-    <div class="col-xs-11 col-md-3">
-      <input type="radio" id="opc1" name="gender" value="male" onclick="altaClientes();">
-      <label for="opc1"> Alta de clientes </label>
+    
+    <div class="col-xs-11 col-md-4">
+      <input type="radio" id="opc1" name="gender" onclick="altaClientes();">
+      <label for="opc1"> Clientes </label>
     </div>
    
-
-    <div class="col-xs-12 col-md-5">
-      <input type="radio" id="opc2" name="gender" value="female" onclick="altaAntenas();"> 
-      <label for="opc2">Ingrese los datos del instructor. </label>
+    <div class="col-xs-12 col-md-4">
+      <input type="radio" id="opc2" name="gender" onclick="altaInstructores();"> 
+      <label for="opc2"> Instructor. </label>
     </div>
 
-</div>
+    <div class="col-xs-12 col-md-4">
+      <input type="radio" id="opc3" name="gender" onclick="altaConceptos();"> 
+      <label for="opc3"> Conceptos. </label>
+    </div>
+
+  </div>
 
   <div id="conten"> </div>
   

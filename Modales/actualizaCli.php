@@ -1,41 +1,44 @@
-
-<?php  
+<?php 
 
 include("prueba1.php");
 
+if(isset($_POST)){
+    $idU = $_POST['id_cli'];
+    $nom = $_POST['nomb'];
+    $apes = $_POST['aps'];
+    $nick = $_POST['nck'];
+    $direc = $_POST['direc'];
+    $tel = $_POST['tel'];
+    $correo = $_POST['correo'];
+    $rf = $_POST['rf'];
+    $fech = $_POST['fech'];
+
+    if ($_FILES['fot']['error']===4) {
+    //die('Es necesario establecer una imagen');
+$res ="UPDATE cliente SET nombre = '".$nom."',apellidos = '".$apes."',nick = '".$nick."',direccion = '".$direc."',celular = '".$tel."',correo = '".$correo."',rfc = '".$rf."',fechaInicio = '".$fech."' WHERE id_cli = '".$idU."'";
+
+ }else if ($_FILES['fot']['error']===0) {
+
+$imagenBinaria = addslashes(file_get_contents($_FILES['fot']['tmp_name']));
+
+$res ="UPDATE cliente SET nombre = '".$nom."',apellidos = '".$apes."',nick = '".$nick."',direccion = '".$direc."',celular = '".$tel."',correo = '".$correo."',rfc = '".$rf."',fechaInicio = '".$fech."',foto = '".$imagenBinaria."' WHERE id_cli = '".$idU."'";
 
 
-	if(isset($_POST))
-	{
 
-		$idU = $_POST['idu'];
-		$nomU =  $_POST['nomu'];
-        $apeU = $_POST['apeu'];
-        $dirU = $_POST['diru'];
-        $telU = $_POST['telu'];
-        $corU = $_POST['coru'];
-        $rfcU = $_POST['rfcu'];
+ }
+$result = mysqli_query($mysqli,$res);
+//$var =  mysqli_affected_rows($conex);
+    if($result == "1")
+    {
+        //$data = mysqli_fetch_array($result);
+        echo "1";
 
-$query = "UPDATE cliente SET nombre = '".$nomU."', apellidos = '".$apeU."', direccion = '".$dirU."',telefono = '".$telU."', correo = '".$corU."',rfc = '".$rfcU."' WHERE id_cliente = '".$idU."'";
-//SELECT * FROM cliente WHERE id_cliente = 1
-
-
-if (!$result = $mysqli->query($query)) {
-        exit(mysqli_error($mysqli));
+    }else{
+        echo "2";
     }
-//echo "$response";
+
+//echo "$idU <br> $nom <br> $apes <br> $nick <br> $direc <br> $tel <br> $correo <br> $rf <br> $fech";
+}else{
+    echo "0";
 }
-/*
-$resultado=$mysqli->query($query);
-print("<table>");
-while ($rows = $resultado->fetch_assoc()) {
-print("<tr>");
-print("<td>".$rows["id_cliente"]."</td>");
-print("<td>".$rows["nombre"]."</td>");
-print("<td>".$rows["apellidos"]."</td>");
-print("</tr>");
-}
-print("</table>");
-$resultado->free();
-*/
-?>
+ ?>

@@ -5,7 +5,7 @@
 
  $id  = $_POST["id"];
 
- $sql = "DELETE FROM paquete WHERE clave = '".$id."'";
+ $sql = "DELETE FROM conceptos WHERE id_concepto = '".$id."'";
 
  $result = $mysqli->query($sql);
  echo json_encode([$id]);

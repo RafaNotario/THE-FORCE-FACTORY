@@ -6,6 +6,10 @@
   vertical-align: top;
 }
 
+input#busq{
+  text-transform: uppercase;
+} 
+
 div.#frm-muestra{
   text-align: center;
 }
@@ -28,6 +32,17 @@ div.info-consulta{
     padding-bottom: 20px;
   }
 }
+
+div#busqueda{
+  position: relative;
+  width: 90%;
+}
+
+span#resulatdo{
+  position: absolute;
+  width: 30%;
+}
+
 
 </style>
 
@@ -64,18 +79,25 @@ div.info-consulta{
     
       <form accept-charset="utf-8" class="form-horizontal" role="form" id="datos_cotizacion">
        
-        <div class="form-group row ">
+        <div class="form-row" id="busqueda">
   
-          <label for="busq" class="col-md-2 control-label">Buscar: </label>
-          <div class="col-md-5">
+          
+          <div class="form-group col-md-8">
+            <label for="busq" class="col-md-2 control-label">Buscar: </label>
             <input id="busq" list="json-datalist" class="input_list form-control" autocomplete="off">
             <datalist id="json-datalist"></datalist>
           </div>
+          
+          <div class="form-group col-md-3">
+            <span id="resultado">
+              <p align='center'><img width='50px' src='../THE-FORCE-FACTORY/img/wait.gif' /></p>
+            </span> 
+          </div>
+
         </div>
       </form> 
 
 
-      <span id="resultado"></span> 
 <br>
 <div class = "info-consulta">
 
@@ -110,19 +132,16 @@ div.info-consulta{
 
     <div class="form-group col-md-6">
       <label for="fech">Fecha Inscripcion</label>
-      <input type="text" class="form-control" id="fech">
+      <input type="text" class="form-control" id="fech" value="<?php echo date('Y-m-d'); ?>">
     </div>
 
     <div class="form-group col-md-4">
-      <label for="concept">Concepto</label>
-      <select id="concept" class="form-control">
-        <option selected>Choose...</option>
-        <option>...</option>
-      </select>
+      <label for="concepto">Concepto</label>
+      <select id="concepto" class="form-control"></select>
     </div>
 
     <div class="form-group col-md-2">
-      <label for="inputZip">Zip</label>
+      <label for="inputZip">Monto:</label>
       <input type="text" class="form-control" id="inputZip">
     </div>
 
@@ -133,34 +152,41 @@ div.info-consulta{
     <div class="form-check">
       <input class="form-check-input" type="checkbox" id="gridCheck">
       <label class="form-check-label" for="gridCheck">
-        Check me out
+        Enviar por correo
       </label>
     </div>
-      <button type="submit" class="btn btn-primary" formmethod="post" formtarget="_blank" name="contrato">Sign in</button>
+      <button type="submit" class="btn btn-primary" formmethod="post" formtarget="_blank" name="contrato">ENVIAR </button>
   </div>
 </div>
 </form>
 
 </div><!-- .info-consulta -->
+
 </html>
 
 <!-- ~~~ TERMINA CODIGO NUEVOO -->
         <script type="text/javascript">
 
         window.onload =$(".info-consulta").hide();
+
+        $(document).ready(function(){
+            cargaConcepto();           
+        });
+
         var dataList = document.getElementById('json-datalist');
        
         var peticion2 = null;/*variable para consulta con PROMISE*/
         $('#busq').focus();
 
-        $('#busq').keyup(function(tecla){
+        $('#busq').on('input',function(tecla){//tenia keyup()
 
         var Chcode = Number(tecla.which);
         var term = $("#busq").val();
 
+       // alert(Chcode);
 /*Chequeamos que solo ingrese letras y enter para realizar la consulta*/
-        if( (Number(Chcode) > 64) && (Number(Chcode) < 91) || (Number(Chcode) === 13))// 
-        {
+//        if( (Number(Chcode) > 64) && (Number(Chcode) < 91) || (Number(Chcode) === 13))// 
+  //      {
 
           var promise = $.ajax({
             url : "pruebas/busqkeyUp.php",
@@ -169,10 +195,14 @@ div.info-consulta{
             data : {param:term},
             cache : false,
             contentType : false,
-
+            beforeSend: function(){
+                          //imagen de carga
+                        $('#resultado').show();
+                    },
             success : function(data,status){
+            
 
-        $("#json-datalist").empty();//datalist convertido a objeto jquery
+              $("#json-datalist").empty();//datalist convertido a objeto jquery
             
             var obt = JSON.parse(data);//parseo de JSON a objeto JS
 
@@ -210,13 +240,31 @@ div.info-consulta{
                     $("#imgn2").attr("src", "data:image/png;base64,"+user.foto);
               });
             }
+              $('#resultado').hide();
           });
-
-}else{
-    console.log("ln 84 if Oprimio -> "+Chcode);
-  }
-
+//}else{
+  //  console.log("ln 84 if Oprimio -> "+Chcode);
+ // }
 });
 
+    function cargaConcepto(){
+            $.get('JSON_PRUE/carga-select.php', function(data) {
+      var obt = JSON.parse(data);
+      console.log(data);
+
+            for (var i = obt.length - 1; i >= 0; i--) {
+              $("#concepto").append('<option name="' + obt[i]['id_cli'] + '">' + obt[i]['nombre'] + '</option>');   
+            }
+    }); // close getJSON()
+    }
+
+/*poner eventos
+  1. hacer funcion la busqueda para usarla en cada evento
+  2. aplicar toUppercase() para buscar solo mayusculas
+    LAP, ESCRITORIO
+  3. .click() para hacer la busqueda con el raton
+    MOVIL, TABLET,CEL
+  4. .bind()
+*/
 </script>
 

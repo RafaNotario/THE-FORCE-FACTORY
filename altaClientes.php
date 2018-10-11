@@ -185,7 +185,7 @@ $("#myBtn").click(function(){
 
   <button type="button" class="btn btn-info btn-lg" id="myBtn">Ver Lista</button>
 
-    <span id="res"></span>
+  <span id="res"></span>
     
   <div id="resultadoBusqueda"></div>
   
