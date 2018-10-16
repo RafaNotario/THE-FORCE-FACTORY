@@ -27,6 +27,7 @@
             var paq = JSON.parse(data);
 
             $("#clav").val(paq.id_concepto);
+            $('#nomC').val(paq.nombreConc);
             $("#desc").val(paq.descripcion);
             $("#cost").val(paq.costo);
 
@@ -41,12 +42,13 @@
 
         function ActualizaPaq(){
             var cla = $("#clav").val();
-
+            var nom = $("#nomC").val();
             var des = $("#desc").val();
             var cos = $("#cost").val();
 
             $.post("Modales/actualizaPaq.php",{
                 claP:cla,
+                nomCo:nom,
                 desP:des,
                 cosP:cos 
             },
@@ -174,6 +176,11 @@ CODIGO PARA MODAL
                 <div class="form-group">
                     <label for="clav">ID</label>
                     <input type="text" id="clav" placeholder="Clave de paquete" class="form-control"/>
+                </div>
+
+                 <div class="form-group">
+                    <label for="nomC">NOMBRE DE PLAN</label>
+                    <input type="text" id="nomC" placeholder="Nombre " class="form-control"/>
                 </div>
 
                 <div class="form-group">

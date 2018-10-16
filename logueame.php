@@ -17,7 +17,7 @@ if (isset($_POST["user"]) && isset($_POST["pass"]))
 	if($num_row == "1")
 	{
 		$data = mysqli_fetch_array($result);
-		$_SESSION["user"] = $data["nick_user"];
+		$_SESSION["user"] = $data["nick_user"];//$M
 		echo "1";
 
 	}else{

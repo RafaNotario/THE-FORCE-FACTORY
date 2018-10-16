@@ -232,7 +232,7 @@ CODIGO PARA MODAL
       processData: false
     }).done(function(data){
       $("#resultadoBusqueda").html(data);
-      console.log("LLego-> "+data);
+     
         if (data === 1 ) {
           toastr.success(' (y)', 'DATOS INSERTADOS', {timeOut: 5000});
          
@@ -240,6 +240,7 @@ CODIGO PARA MODAL
           $('#res').html("Ha ocurrido un error.");
           $('#res').css('color','red');
         }
+
         $("#update_user_modal").modal("hide");
 
 //codigo por que el modal-backdrop se quedaba fijo

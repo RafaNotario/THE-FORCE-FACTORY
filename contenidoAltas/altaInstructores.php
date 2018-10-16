@@ -5,13 +5,13 @@
 
     <script type="text/javascript">
 
-    $('#altaAntena').click(function(){
+    $('#altaInstr').click(function(){
 
-          if($('#mac').val()==""){
-            var mac = "00:00:00:00:00:00";
+          if($('#nomI').val()==""){
+            var nomI = "00:00:00:00:00:00";
           }
           else{
-            var mac = $('#mac').val();
+            var nomI = $('#nomI').val();
           }
 
 
@@ -30,10 +30,13 @@
             var tipo = $('#tipo').val();
           }
 
-          jQuery.post("api/createAntena.php", {
-            MC:mac,
-            IP:ip,
-            TIP:tipo
+          jQuery.post("api/createInstrustor.php", {
+            nombI:nomI,
+            apesI:apeI,
+            direccI:direcI,
+            corrI:corI,
+            fechainI:fechaiI,
+            fechnacI:fechanaI
             
           }, function(data, textStatus){
               console.log(data);
@@ -93,32 +96,42 @@
 
           <br>
           <div class="form-group">
-            <label for="mac"> Nombre(s): </label>
-            <input type="text" name="mac" id="mac" placeholder="Formato: 00:00:00:00:00:00" class="form-control">       
+            <label for="nomI"> Nombre(s): </label>
+            <input type="text" name="nomI" id="nomI" placeholder="Nombre" class="form-control">       
           </div>
           <br>
           <div class="form-group">
-            <label for="ip"> Apellidos: </label>
-            <input type="text" name="ip" id="ip" placeholder="Apellidos" class="form-control">
+            <label for="apeI"> Apellidos: </label>
+            <input type="text" name="apeI" id="apeI" placeholder="Apellidos" class="form-control">
           </div>            
           <br>
 
           <div class="form-group">
-            <label for="tipo"> Dirección: </label>
-            <input type="text" name="tipo" id="tipo" placeholder="Dirección" class="form-control">
+            <label for="direcI"> Dirección: </label>
+            <input type="text" name="direcI" id="direcI" placeholder="Dirección" class="form-control">
           </div>
           <br>
           
           <div class="form-group">
-            <label for="correo"> Correo: </label>
-            <input type="email" name="email" id="email" placeholder="Ingrese correo" >
-
-
+            <label for="corI"> Correo: </label>
+            <input type="email" name="corI" id="corI" placeholder="Ingrese correo" class="form-control">
           </div>
-
           <br>
+
           <div class="form-group">
-            <input type="button" name="altaAntena" id="altaAntena" value="Enviar" class="btn btn-success">
+            <label for="fechaiI"> Fecha Inicio:</label>
+            <input type="date" name="fechaiI" id="fechaiI" class="form-control">
+          </div>
+          <br>
+
+          <div class="form-group">
+            <label for="fechanaI"> Fecha de Nacimiento:</label>
+            <input type="date" name="fechanaI" id="fechanaI" class="form-control">
+          </div>
+          <br>
+
+          <div class="form-group">
+            <input type="button" name="altaInstr" id="altaInstr" value="Enviar" class="btn btn-success">
           </div>
 
           </fieldset>

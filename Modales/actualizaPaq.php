@@ -7,12 +7,12 @@ include("prueba1.php");
 	{
 
 		$clap = $_POST['claP'];
+		$nombC = $_POST['nomCo'];
 		$desp =  $_POST['desP'];
         $cosp = $_POST['cosP'];
 
-$query = "UPDATE conceptos SET descripcion = '".$desp."', costo = '".$cosp."' WHERE id_concepto = '".$clap."'";
+$query = "UPDATE conceptos SET nombreConc = '".$nombC."',descripcion = '".$desp."', costo = '".$cosp."' WHERE id_concepto = '".$clap."'";
 //SELECT * FROM cliente WHERE id_cliente = 1
-
 
 if (!$result = $mysqli->query($query)) {
         exit(mysqli_error($mysqli));

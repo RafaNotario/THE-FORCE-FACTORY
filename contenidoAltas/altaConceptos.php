@@ -19,6 +19,12 @@
           <br>
 
           <div class="form-group">
+            <label for="nomCon"> Nombre/Identificador del plan: </label>
+            <input type="text" name="nomCon" id="nomCon" placeholder="Identificador" class="form-control">
+          </div>
+          <br>
+
+          <div class="form-group">
             <label for="descri"> Descripcion: </label>
             <input type="text" name="descri" id="descri" placeholder="Descripcion del " class="form-control">
           </div>            
@@ -50,6 +56,14 @@
    <script type="text/javascript">
 
     $('#altaContr').click(function(){
+
+          if ($('#nomCon').val()=="") {
+            alert("Ingrese nombre del plan");
+            return false;
+          }else{
+            var nomCon = $('#nomCon').val();
+          }
+
           if($('#descri').val()==""){
             alert("Ingrese descripcion");
             return false;
@@ -67,6 +81,7 @@
           }
 
           jQuery.post("api/altas.php",{
+            nomConc:nomCon,
             descriP:descrip,
             costoP:costo,
             funcion:"funcion1"

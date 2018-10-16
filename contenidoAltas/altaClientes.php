@@ -23,6 +23,7 @@
     </script>
 
   <style type="text/css">
+
     #GContent{
       margin-top: 2em;
     }
@@ -83,7 +84,7 @@
           
           <div class="form-group">
             <label for="datepick"> Fecha de Inscripcion </label>
-              <input type="text" name="datepick" id="datepick" value="<?php echo date('Y-m-d'); ?>" class="form-control">
+              <input type="date" name="datepick" id="datepick" value="<?php echo date('Y-m-d'); ?>" class="form-control">
           </div>
         <br>
 
@@ -163,10 +164,4 @@
 
 </body>
 
-
 </html>
-
-
-
-
-

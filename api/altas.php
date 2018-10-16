@@ -21,9 +21,10 @@ if (isset($_POST['funcion']) && !empty($_POST["funcion"])) {
 switch ($func) {
 	case 'funcion1':
 		if((isset($_POST['descriP']) && !empty($_POST['descriP'])) && (isset($_POST['costoP']) && !empty($_POST['costoP']))  ){	
+		$nomC=$_POST['nomConc'];
 		$des=$_POST['descriP'];
 		$cos=$_POST['costoP'];
-		insertaConceptos($des,$cos);
+		insertaConceptos($nomC,$des,$cos);
 		echo "1";
 	}else{
 		echo "0";
@@ -40,10 +41,10 @@ switch ($func) {
 		break;
 }
 
-function insertaConceptos($descr,$coast){
+function insertaConceptos($nomC,$descr,$coast){
 try{
 	$dbh = new Conexion();
-	$consulta = "INSERT INTO conceptos(descripcion,costo) VALUES('".$descr."','".$coast."')";
+	$consulta = "INSERT INTO conceptos(nombreConc,descripcion,costo) VALUES('".$nomC."','".$descr."','".$coast."')";
 
 	$dbh->exec($consulta);
 		

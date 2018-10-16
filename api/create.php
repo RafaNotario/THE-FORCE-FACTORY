@@ -17,6 +17,7 @@ $fech = $_POST['datepick'];
 
 $imagenBinaria = addslashes(file_get_contents($_FILES['fot']['tmp_name']));
 
+
 $res ="INSERT INTO cliente(nombre,apellidos,nick,direccion,celular,correo,rfc,fechaInicio,foto) VALUES(
 	'".$nombre."','".$apes."','".$nick."','".$dir."','".$cel."','".$correo."','".$rfc."','".$fech."','".$imagenBinaria."')";
 
@@ -30,6 +31,8 @@ $result = mysqli_query($mysqli,$res);
 	}else{
 		echo "2";
 	}
+
+
 
  }
 

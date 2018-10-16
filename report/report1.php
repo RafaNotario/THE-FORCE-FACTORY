@@ -1,8 +1,9 @@
 <?php 
 
-require '../vendor/autoload.php';
 
 use Spipu\Html2Pdf\Html2Pdf;
+
+require '../vendor/autoload.php';
 
 if (isset($_POST['contrato'])) {
 
@@ -13,7 +14,10 @@ if (isset($_POST['contrato'])) {
 
 $html2pdf = new Html2Pdf();
 $html2pdf->writeHTML($contenido);
-$html2pdf->output();
+$doc = $html2pdf->output('enviar.pdf');
+
+
+
 
 }else
  echo "<h1>SIN PARAMETROS </h1>";

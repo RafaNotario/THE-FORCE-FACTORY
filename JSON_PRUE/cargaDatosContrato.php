@@ -132,17 +132,25 @@ span#resulatdo{
 
     <div class="form-group col-md-6">
       <label for="fech">Fecha Inscripcion</label>
-      <input type="text" class="form-control" id="fech" value="<?php echo date('Y-m-d'); ?>">
+      <input type="date" class="form-control" id="fech" value="<?php echo date('Y-m-d'); ?>">
     </div>
 
     <div class="form-group col-md-4">
-      <label for="concepto">Concepto</label>
-      <select id="concepto" class="form-control"></select>
+      <label for="concepto">Concepto/Paquete.</label>
+      <select name="concepto" id="concepto" class="form-control">PLANES</select>
     </div>
 
-    <div class="form-group col-md-2">
-      <label for="inputZip">Monto:</label>
-      <input type="text" class="form-control" id="inputZip">
+  </div>
+
+  <div class="form-row">
+    <div class="form-group col-md-8">
+      <label for="descriP">Descripcion:</label>
+      <input type="text" class="form-control" id="descriP" name="descriP">
+    </div>
+
+    <div class="form-group col-md-4">
+      <label for="costP">Costo:</label>
+      <input type="text" class="form-control" id="costP" name="costP">
     </div>
 
   </div>
@@ -152,7 +160,7 @@ span#resulatdo{
     <div class="form-check">
       <input class="form-check-input" type="checkbox" id="gridCheck">
       <label class="form-check-label" for="gridCheck">
-        Enviar por correo
+        Enviar recibo por correo.
       </label>
     </div>
       <button type="submit" class="btn btn-primary" formmethod="post" formtarget="_blank" name="contrato">ENVIAR </button>
@@ -168,9 +176,21 @@ span#resulatdo{
         <script type="text/javascript">
 
         window.onload =$(".info-consulta").hide();
+        var obt;
 
         $(document).ready(function(){
-            cargaConcepto();           
+            cargaConcepto();
+
+          var select = document.getElementById('concepto');
+          select.addEventListener('change',function(){
+            var selectedOption = this.options[select.selectedIndex];
+            //console.log(selectedOption.value +': ' + selectedOption.text+': '+selectedOption.getAttribute("data-costo")+': '+selectedOption.getAttribute("data-descripcion"));
+
+            $('#descriP').val(selectedOption.getAttribute("data-descripcion"));
+            $('#costP').val(selectedOption.getAttribute("data-costo"));
+
+          });
+                  
         });
 
         var dataList = document.getElementById('json-datalist');
@@ -200,8 +220,6 @@ span#resulatdo{
                         $('#resultado').show();
                     },
             success : function(data,status){
-            
-
               $("#json-datalist").empty();//datalist convertido a objeto jquery
             
             var obt = JSON.parse(data);//parseo de JSON a objeto JS
@@ -248,12 +266,12 @@ span#resulatdo{
 });
 
     function cargaConcepto(){
-            $.get('JSON_PRUE/carga-select.php', function(data) {
-      var obt = JSON.parse(data);
+       $.get('JSON_PRUE/carga-select.php', function(data) {
+      obt = JSON.parse(data);
       console.log(data);
 
             for (var i = obt.length - 1; i >= 0; i--) {
-              $("#concepto").append('<option name="' + obt[i]['id_cli'] + '">' + obt[i]['nombre'] + '</option>');   
+$("#concepto").append('<option value="'+obt[i]['id_concepto']+'" data-costo="'+obt[i]['costo']+'" data-descripcion="'+obt[i]['descripcion']+'">'+obt[i]['nombreConc']+'</option>');   
             }
     }); // close getJSON()
     }
