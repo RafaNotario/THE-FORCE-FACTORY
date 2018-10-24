@@ -33,7 +33,13 @@ switch ($func) {
 		break;
 	
 	case 'funcion2':
-		echo "RAFA";
+	if(isset($_POST['idcli'])){
+		$idc = $_POST['idcli'];
+		echo "1";
+	}else{
+		echo "05";
+	}
+		
 		break;
 
 	default:
@@ -54,4 +60,10 @@ try{
 }
 	$dbh = null;
 }
+
+
+function insertaCont(){
+
+	
  ?>
+}

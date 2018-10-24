@@ -108,6 +108,8 @@ span#resulatdo{
 
 <div class="flotForm col-sm-9 col-md-7 col-xs-5 col-lg-4">
 
+  <input type="text" name="idOcul" id="idOcul" class="hide">
+
   <div class="form-group">
     <label for="nmb">Nombre: </label>
     <input type="text" class="form-control" id="nmb" name="titulo">
@@ -117,12 +119,12 @@ span#resulatdo{
 
     <div class="form-group">
     <label for="nick">Nick Name</label>
-    <input type="text" class="form-control" id="nick">
+    <input type="text" class="form-control" id="nick" name="nick">
   </div>
 
   <div class="form-group">
     <label for="direcc">Direccion</label>
-    <input type="text" class="form-control" id="direcc" >
+    <input type="text" class="form-control" id="direcc" name="direcc">
   </div>
 
 </div>
@@ -163,8 +165,10 @@ span#resulatdo{
         Enviar recibo por correo.
       </label>
     </div>
-      <button type="submit" class="btn btn-primary" formmethod="post" formtarget="_blank" name="contrato">ENVIAR </button>
+      <button type="submit" class="btn btn-primary" formmethod="post" formtarget="_blank" name="contrato" onclick="guardaCont();">ENVIAR </button>
   </div>
+
+  <span id="res"></span>
 </div>
 </form>
 
@@ -235,7 +239,7 @@ span#resulatdo{
 
             if (obt.length === 1 ) {
               peticion2 = obt[0].id_cli;
-
+              $("#idOcul").val(obt[0].id_cli);
               $("#nmb").val(obt[0].nombre+" "+obt[0].apellidos);
               $("#nick").val(obt[0].nick);
               $("#direcc").val(obt[0].direccion);
@@ -276,6 +280,69 @@ $("#concepto").append('<option value="'+obt[i]['id_concepto']+'" data-costo="'+o
     }); // close getJSON()
     }
 
+
+    function guardaCont(){
+
+      
+      var idclient = $("#idOcul").val();
+      var idoption = $("#concepto").val();
+      var fechcont = $("#fech").val();
+
+      alert("quedo: "+fechcont);
+
+
+
+          jQuery.post("api/altas.php",{
+            idcli:idclient,
+            idopt:idoption,
+            fechc:fechcont,
+            funcion:"funcion2"
+          }, function(data, textStatus){
+              console.log(data);
+
+            if(data == 1){
+//              LimpiarCampos();
+              alert("llego: "+data);
+              $('#res').html("Datos insertados.");
+              $('#res').css('color','green');
+              //$("#resultadoBusqueda").load("pruebas/getPaquetes.php");
+            }
+            else{
+              $('#res').html("Ha ocurrido un error.");
+              $('#res').css('color','red');
+            }
+          });
+/*
+          $.ajax({
+            url : "api/altas.php",
+            type : "POST",
+            dataType : "HTML",
+            data : {
+              funcion:"funcion2",
+              idcli:idclient,
+              idopt:idoption,
+              fech:fechcont
+            },
+            cache : false,
+            contentType : false,
+            beforeSend: function(){
+                          //imagen de carga
+                        alert("envio before:"+funcion);
+                    },
+            success : function(data,status){
+                  alert("llego success"+data);
+            },
+            error : function(xhr,status){
+              alert('Ha ocurrido un error ln -309');
+            },
+            complete: function(xhr,status){
+            
+            }
+          });//ajax
+*/
+      alert("apreto boton-> "+idoption);
+    }
+
 /*poner eventos
   1. hacer funcion la busqueda para usarla en cada evento
   2. aplicar toUppercase() para buscar solo mayusculas
@@ -284,5 +351,11 @@ $("#concepto").append('<option value="'+obt[i]['id_concepto']+'" data-costo="'+o
     MOVIL, TABLET,CEL
   4. .bind()
 */
+
+function convertDateFormat(string) {
+  var info = string.split('/');
+  return info[2] + '-' + info[1] + '-' + info[0];
+}
+
 </script>
 
