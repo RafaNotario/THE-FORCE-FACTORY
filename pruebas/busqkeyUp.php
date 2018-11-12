@@ -13,7 +13,7 @@ $consultaBusqueda = str_replace($caracteres_malos, $caracteres_buenos, $var);
 if(isset($consultaBusqueda))
 {
 
-$query = "SELECT id_cli,nombre,apellidos,nick,direccion FROM cliente WHERE CONCAT(nombre,' ',apellidos) LIKE '".$consultaBusqueda."%' ";
+$query = "SELECT id_cli,nombre,apellidos,nick,direccion,correo FROM cliente WHERE CONCAT(nombre,' ',apellidos) LIKE '".$consultaBusqueda."%' ";
 //SELECT * FROM cliente WHERE id_cli = 1 -> id_cli,nombre,apellidos,nick,direccion,celular,correo,rfc,fechaInicio,foto
 
 $response = array();

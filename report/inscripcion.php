@@ -6,10 +6,32 @@
 			padding: 0;
 		}
 		html{
-		    /*modelo de caja para que al agregar un padding no nos afecte en el tamaño del elemento*/
+		    /*
+			prueba@nobosys.tk
+			hA7QwdpGKO
+
+			vesta 
+			admin
+			VudhQwZaf3
+
+			ftp the force f
+			user: admin_tff
+			pass: x9SfFI3NHL
+
+			user: kebo@theforcefactorymx.com
+			pass: av8Ni4JBz6
+			
+			rafa_notario@nobosys.tk
+			pass: HG8bBvUZmq
+
+			bd :  admin_tff;
+			user: admin_tff1
+			pass: 6dFyyeVKTT
+
+		    modelo de caja para que al agregar un padding no nos afecte en el tamaño del elemento
+		    */
 		    box-sizing: border-box;
 		}
-
 		*,*:before,*:after{
 		    box-sizing: inherit;
 		}
@@ -18,22 +40,27 @@
 		    background-color: #f2f2f2;
 		    font-family: 'Open Sans', sans-serif;
 		}
-		.contenedor{
-		    width: 95%;
-		    margin: 0 auto;
+
+		p{
+			font-size: 17px;
+			margin-top: 10px;
 		}
 
 		table {
-		    width: 100%;
+		    font-family: arial, sans-serif;
 		    border-collapse: collapse;
-		    position: absolute;
+		    width: 90%;
+		    margin-left: 50px;
 		}
 
-		table, td, th {
-		    border: 1px solid black;
-		    padding: 5px;
+		td, th {
+		    text-align: left;
+		    padding: 20px;
 		}
-
+		tr:nth-child(even) {
+		    background-color: rgba(242,190,84,.6)!important;
+		}
+		
 		#cabecera h1{
 			display: block;
 			float: left;
@@ -52,9 +79,6 @@
 		}
 		h2{
 			color: blue;
-		}
-		#cajas{
-			width: 100%;
 		}	
 		.caja{
 			width: 100%;
@@ -63,10 +87,9 @@
 			background: #E7E7E7;
 			margin-bottom: 5px;
 			position: relative;
+			margin: 0 auto;
 		}
 	</style>
-
-
 	
 	<page backtop="7mm" backbottom="7mm" backleft="10mm" backright="10mm">  
 	<!--
@@ -84,7 +107,7 @@
 	</page_header> 
 
 	<page_footer style="margin-left: 150px;"> 
-        &copy; theforcefactory.net <br>
+       <span>theforcefactorymx.com </span> <br>
         Avenida 11 sur 1456 Cuautlancingo Puebla C.P. 08978 <br>
         Tel: 2225984218.
     </page_footer> 
@@ -93,7 +116,7 @@
  		<?php if (isset($_POST['titulo'])): ?>
 			<div id="cabecera">
 				<!--<img src="https://html2pdf.fr/img/_langue/es/logo.gif"> -->
-				<img src="../img/2.png" alt="LOGO T-F-F">
+				<img src="../img/report.jpg" alt="LOGO T-F-F">
 
 				<h1>RECIBO DE INSCRIPCION</h1> 
 				<h2><?=$_POST['titulo']?></h2>
@@ -104,17 +127,33 @@
 	   	<?php endif; ?>	
     	<h3> MAS INFORMACION </h3>
 
-<div class="contenedor caja">
+<div class="caja">
 
+<table>
+  <tr>
+    <td>Nombre de paquete:</td>
+    <td><span> <?=$_POST['vari2']; ?></span></td>
+  </tr>
+  <tr>
+    <td>Descripcion: </td>
+    <td><span> <?=$_POST['descriP']; ?></span></td>
+  </tr>
+  <tr>
+    <td>Costo: </td>		
+    <td><span> <?=$_POST['costP']; ?></span></td>
+  </tr>
 
+</table>
 </div>
 
 <br>
-<qrcode value="Value to Coder" ec="H" 
+
+<qrcode value="theforcefactorymx.com" ec="H" 
 		style="width: 30mm;
 			background-color: white;
 			color: black;
 			margin-top: 200px;
 			margin-left: 280px;
 "></qrcode>
+
 </page>

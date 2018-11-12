@@ -53,9 +53,9 @@ if (!isset($_SESSION["user"])) //{
 	<a class="closebtn" href="javascript:void(0)" onclick="closeNav()">&times;</a>
 	
 	<a id="alta" href="#">ALTAS</a>
-	<a id="ver" href="#">VER</a>
+	<a id="ver" href="#">INSCRIPCION</a>
 	<a id="pagos" href="#">PAGOS</a>
-	<a href="#">MAS</a>
+	<a href="#">REPORTES</a>
 </div>
 
 

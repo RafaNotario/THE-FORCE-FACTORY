@@ -96,9 +96,7 @@ textarea {
 /* ==========================================================================
    Author's custom styles
    ========================================================================== */
-
-
-html{
+   html{
     /*modelo de caja para que al agregar un padding no nos afecte en el tamaño del elemento*/
     box-sizing: border-box;
 }
@@ -147,7 +145,7 @@ h2{
 
 /* HEADER*/
 div.hero{
-    background-image: url(../../img/2.png);
+    background-image: url(../img/2.png);
     height: 100vh;
     background-position: top center;
     background-size: cover;
@@ -247,14 +245,19 @@ h1.nombre-sitio{
 div.barra{
     background-color: #353535;
     padding: 20px 0;
+    
 }
 
 div.logo{
     width: 80%;
 }
 
-div.logo img{/*para que la imagen ocupe el 100% de su contenedor div*/
+div.logo p{/*para que la imagen ocupe el 100% de su contenedor div*/
      width: 100%;
+     color: white;
+     font-size: 1.5em;
+     margin: 0;
+     padding: 0;
 }
 
 @media only screen and (min-width: 768px){
@@ -487,3 +490,5 @@ nav.navegacion-principal a:last-child:hover{
         page-break-after: avoid;
     }
 }
+
+/*dep china poblana(222) 3522914*/

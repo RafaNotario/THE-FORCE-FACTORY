@@ -17,7 +17,9 @@ div.#frm-muestra{
 div.info-consulta{
   width: 100vw;
   margin-top: 20px;
+  margin-bottom: 25px;
   background-color:black;
+
 }
 
 @media only screen and (max-width: 600px) {
@@ -39,46 +41,28 @@ div#busqueda{
 }
 
 span#resulatdo{
+
   position: absolute;
   width: 30%;
+}
+
+#res{
+  display: block;
 }
 
 
 </style>
 
 <html>
-  
-      <form>
-        <fieldset>
-          <legend> Nuevo contrato. </legend>  
-          <h4>Busqueda por: </h4>
 
-          <center>
-            <div class="row">
-              
-              <div class="col-lg-4 col-md-3 col-xs-11">
-                <input type="radio" id="opc1" name="gender" value="0" >
-                <label for="opc1"> Nombre </label>
-              </div>
-                   
-              <div class="col-lg-4 col-md-3 col-xs-11">
-                <input type="radio" id="opc3" name="gender" value="1" >
-                <label for="opc3"> Nick-Name </label>
-              </div>
-
-            </div>
-          </center>
-          
-        </fieldset>
-
-      </form>
 
         <br>
 
 <!-- ~~~CODIGO NUEVOO -->
     
       <form accept-charset="utf-8" class="form-horizontal" role="form" id="datos_cotizacion">
-       
+       <fieldset>
+         <legend> Nuevo contrato. </legend>  
         <div class="form-row" id="busqueda">
   
           
@@ -95,6 +79,7 @@ span#resulatdo{
           </div>
 
         </div>
+          </fieldset>
       </form> 
 
 
@@ -102,6 +87,7 @@ span#resulatdo{
 <div class = "info-consulta">
 
  <form action="../THE-FORCE-FACTORY/report/report1.php">
+
     <div class="form-group col-md-3 col-sm-3 ajust">
       <img class="img-responsive img-circle" id="imgn2" alt="USUARIO" src="img/Mp.jpg" width="200px">
     </div>
@@ -118,13 +104,18 @@ span#resulatdo{
   <div class="form-row">
 
     <div class="form-group">
-    <label for="nick">Nick Name</label>
+    <label for="nick">Nick Name </label>
     <input type="text" class="form-control" id="nick" name="nick">
   </div>
 
   <div class="form-group">
-    <label for="direcc">Direccion</label>
+    <label for="direcc">Direccion </label>
     <input type="text" class="form-control" id="direcc" name="direcc">
+  </div>
+
+  <div class="form-group">
+    <label for="mail">Correo </label>
+    <input type="text" class="form-control" id="mail" name="mail">
   </div>
 
 </div>
@@ -154,6 +145,10 @@ span#resulatdo{
       <label for="costP">Costo:</label>
       <input type="text" class="form-control" id="costP" name="costP">
     </div>
+<!-- 
+  input ocupto para enviar los otros datos del reporte contrato
+--> 
+  <input type="text" name="vari2" id="vari2" class="hide">
 
   </div>
 
@@ -165,7 +160,7 @@ span#resulatdo{
         Enviar recibo por correo.
       </label>
     </div>
-      <button type="submit" class="btn btn-primary" formmethod="post" formtarget="_blank" name="contrato" onclick="guardaCont();">ENVIAR </button>
+      <button type="submit" class="btn btn-primary" formmethod="post" formtarget="_blank" name="contrato" onclick="guardaCont();" >GUARDAR</button><!--onclick="guardaCont();" -->
   </div>
 
   <span id="res"></span>
@@ -181,7 +176,7 @@ span#resulatdo{
 
         window.onload =$(".info-consulta").hide();
         var obt;
-
+//funcion de evento de select
         $(document).ready(function(){
             cargaConcepto();
 
@@ -192,6 +187,7 @@ span#resulatdo{
 
             $('#descriP').val(selectedOption.getAttribute("data-descripcion"));
             $('#costP').val(selectedOption.getAttribute("data-costo"));
+            $("#vari2").val(selectedOption.getAttribute("data-vlue"));
 
           });
                   
@@ -211,7 +207,6 @@ span#resulatdo{
 /*Chequeamos que solo ingrese letras y enter para realizar la consulta*/
 //        if( (Number(Chcode) > 64) && (Number(Chcode) < 91) || (Number(Chcode) === 13))// 
   //      {
-
           var promise = $.ajax({
             url : "pruebas/busqkeyUp.php",
             type : "GET",
@@ -242,7 +237,9 @@ span#resulatdo{
               $("#idOcul").val(obt[0].id_cli);
               $("#nmb").val(obt[0].nombre+" "+obt[0].apellidos);
               $("#nick").val(obt[0].nick);
+              $("#mail").val(obt[0].correo);
               $("#direcc").val(obt[0].direccion);
+
               $(".info-consulta").show();
             }
             },
@@ -272,10 +269,10 @@ span#resulatdo{
     function cargaConcepto(){
        $.get('JSON_PRUE/carga-select.php', function(data) {
       obt = JSON.parse(data);
-      console.log(data);
+    //  console.log(data);
 
             for (var i = obt.length - 1; i >= 0; i--) {
-$("#concepto").append('<option value="'+obt[i]['id_concepto']+'" data-costo="'+obt[i]['costo']+'" data-descripcion="'+obt[i]['descripcion']+'">'+obt[i]['nombreConc']+'</option>');   
+$("#concepto").append('<option value="'+obt[i]['id_concepto']+'" data-costo="'+obt[i]['costo']+'" data-vlue="'+obt[i]['nombreConc']+'" data-descripcion="'+obt[i]['descripcion']+'">'+obt[i]['nombreConc']+'</option>');   
             }
     }); // close getJSON()
     }
@@ -283,27 +280,21 @@ $("#concepto").append('<option value="'+obt[i]['id_concepto']+'" data-costo="'+o
 
     function guardaCont(){
 
-      
       var idclient = $("#idOcul").val();
       var idoption = $("#concepto").val();
       var fechcont = $("#fech").val();
-
-      alert("quedo: "+fechcont);
-
-
+      var mesI = convertDateFormat(fechcont);
+      //alert("mes: "+convertDateFormat(fechcont));
 
           jQuery.post("api/altas.php",{
             idcli:idclient,
             idopt:idoption,
             fechc:fechcont,
+            mesin:mesI,
             funcion:"funcion2"
           }, function(data, textStatus){
-              console.log(data);
-
-            if(data == 1){
-//              LimpiarCampos();
-              alert("llego: "+data);
-              $('#res').html("Datos insertados.");
+            if(data != 0){
+              $('#res').html("Contrato No. "+data+" insertado correctamente");
               $('#res').css('color','green');
               //$("#resultadoBusqueda").load("pruebas/getPaquetes.php");
             }
@@ -312,35 +303,6 @@ $("#concepto").append('<option value="'+obt[i]['id_concepto']+'" data-costo="'+o
               $('#res').css('color','red');
             }
           });
-/*
-          $.ajax({
-            url : "api/altas.php",
-            type : "POST",
-            dataType : "HTML",
-            data : {
-              funcion:"funcion2",
-              idcli:idclient,
-              idopt:idoption,
-              fech:fechcont
-            },
-            cache : false,
-            contentType : false,
-            beforeSend: function(){
-                          //imagen de carga
-                        alert("envio before:"+funcion);
-                    },
-            success : function(data,status){
-                  alert("llego success"+data);
-            },
-            error : function(xhr,status){
-              alert('Ha ocurrido un error ln -309');
-            },
-            complete: function(xhr,status){
-            
-            }
-          });//ajax
-*/
-      alert("apreto boton-> "+idoption);
     }
 
 /*poner eventos
@@ -353,8 +315,51 @@ $("#concepto").append('<option value="'+obt[i]['id_concepto']+'" data-costo="'+o
 */
 
 function convertDateFormat(string) {
-  var info = string.split('/');
-  return info[2] + '-' + info[1] + '-' + info[0];
+  var info = string.split('-');
+  var mes = "";
+
+  switch(info[1]){
+    case "01":
+      mes = "Enero";
+    break;
+    case "02":
+      mes = "Febrero";
+    break;
+    case "03":
+      mes = "Marzo";
+    break;
+    case "04":
+      mes = "Abril";
+    break;
+    case "05":
+      mes = "Mayo";
+    break;
+    case "06":
+      mes = "Junio";
+    break;
+    case "07":
+      mes = "Julio";
+    break;
+    case "08":
+      mes = "Agosto";
+    break;
+    case "09":
+      mes = "Septiembre";
+    break;
+    case "10":
+      mes = "Octubre";
+    break;
+    case "11":
+      mes = "Noviembre";
+    break;
+    case "12":
+      mes = "Diciembre";
+    break;
+
+    default:
+    mes="ERROR DE FECHA";
+}
+  return mes;
 }
 
 </script>

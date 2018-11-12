@@ -14,25 +14,7 @@
 
     </script>
 
-    <script type="text/javascript">
-      $(document).ready(function(){
-        $.ajax({
-          type: "POST",
-          url: "pruebas/getCuartos.php",
-          success: function(response)
-          {
-            $('.selector-pais select').html(response).fadeIn();
-          }
-        });
-          console.log("Esta listo");
-      });
 
-//EVENTO DEL BOTON GUARDAR
-      $("#altaComid").click(function(){
-        toastr.success("alerta de exito", "Exito de boton", {timeOut: 2500})
-      });
-    
-  </script>
   </head>
 
   <body>
@@ -59,16 +41,6 @@
                 <input type="text" name="descri" id="descri" placeholder="Descripcion" class="form-control">
               </div>            
           <br>
-
-              <label class="radio-inline col-xs-6 col-md-4">
-                <input type="radio" name="optradio">Option 1
-              </label>
-              
-              <label class="radio-inline col-xs-6 col-md-4">
-                <input type="radio" name="optradio">Option 2
-              </label>            
-
-          <br>
               <div class="form-group">
                 <label for="autorizo"> Autorizo: </label>
                 <input type="text" name="autorizo" id="autorizo" placeholder="Autorizo:" class="form-control">
@@ -83,29 +55,25 @@
     </div>
   </div>
 
+        <script type="text/javascript">
+      $(document).ready(function(){
+        $.ajax({
+          type: "POST",
+          url: "pruebas/getCuartos.php",
+          success: function(response)
+          {
+            $('.selector-pais select').html(response).fadeIn();
+          }
+        });
+          console.log("Esta listo");
+      });
 
-      <div class="row">
-        <div class="col-xs-6 col-md-4">.col-xs-12 .col-md-8</div>
-        <div class="col-xs-6 col-md-4">.col-xs-6 .col-md-4</div>
-      </div>
-
-    <div class="radio">
-      <label>
-        <input type="radio" id="opc1" name="gender" value="pDia" checked>
-          Por día
-      </label>
-    </div>
-
-    <div class="radio">
-      <label>
-        <input type="radio" id="opc2" name="gender"  value="pMes"> 
-          Por mes 
-      </label>
-    </div>
+//EVENTO DEL BOTON GUARDAR
+      $("#altaComid").click(function(){
+        toastr.success("alerta de exito", "Exito de boton", {timeOut: 2500})
+      });
     
-    <div class="selector-pais col-md-4">
-      Elige un país
-      <select class="form-control "></select>
-    </div>
+  </script>
+
   </body>
   </html>

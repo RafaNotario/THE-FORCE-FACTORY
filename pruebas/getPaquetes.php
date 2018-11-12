@@ -30,7 +30,6 @@
             $('#nomC').val(paq.nombreConc);
             $("#desc").val(paq.descripcion);
             $("#cost").val(paq.costo);
-
             //  console.log(data); 
             }
           );
@@ -38,7 +37,6 @@
         $("#update_user_modal").modal("show");
 
       });
-
 
         function ActualizaPaq(){
             var cla = $("#clav").val();
@@ -59,7 +57,6 @@
                 }
             );
         }
-
  
     function DeleteUser(id) {
       var conf = confirm("DESEA ELIMINAR EL PAQUETE CON ID = "+id);
@@ -125,7 +122,7 @@ if (!$result = $mysqli->query($sql2)) {
 <table>
 <tr>
 <th>CLAVE</th>
-<th>DESCRIPCION</th>
+<th>NOMBRE</th>
 <th>COSTO</th>
 
 </tr>
@@ -136,7 +133,7 @@ while($row = mysqli_fetch_array($result)) {
 ?>
     <tr>
     <td class="numero"> <?php echo $row['id_concepto']; ?> </td>
-    <td> <?php echo $row['descripcion'];?> </td>
+    <td> <?php echo $row['nombreConc'];?> </td>
     <td> <?php echo $row['costo'];?>  </td>
 
     <td class="botonVerP"> <button type="button" class="btn btn-primary btn-md" id="myBtnVP">Ver</button> </td>
@@ -147,7 +144,6 @@ while($row = mysqli_fetch_array($result)) {
 
 <?php
 }
-
 mysqli_close($mysqli);
 ?>
 </table>
