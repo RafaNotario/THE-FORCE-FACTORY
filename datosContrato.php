@@ -18,7 +18,7 @@
   </head>
 
   <body>
-    <h3>Elija el tipo de alquiler e ingrese los datos para posteriormente emitir el recibo. </h3> <br>
+    <h3>Buequeda por: </h3> <br>
 
     <div class="container">
       <div class="row">

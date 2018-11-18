@@ -1,4 +1,6 @@
 
+
+
   <style type="text/css">
 
     #GContent{
@@ -46,7 +48,7 @@
    
   </div>
 
-    <button type="button" class="btn btn-info btn-lg" id="myBtnP">Open Modal</button>
+    <button type="button" class="btn btn-info btn-lg" id="myBtnP">Ver todos.</button>
 
     <span id="res"></span>
   <div id="resultadoBusqueda"></div>

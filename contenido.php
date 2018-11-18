@@ -2,9 +2,6 @@
 
   <html lang="es">
   <head>
-
-  
-
   <link href="//cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/css/toastr.min.css" rel="stylesheet">
 
   <script type="text/javascript" src="//cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/js/toastr.min.js">
@@ -58,11 +55,12 @@
       <label for="opc1"> Clientes </label>
     </div>
    
+  <!-- DESCOMENTAR HASTA MODIFICAR LO DE INSTRUCTORES, ALTA MODIFICAR, VER
     <div class="col-xs-12 col-md-4">
       <input type="radio" id="opc2" name="gender" onclick="altaInstructores();"> 
       <label for="opc2"> Instructor. </label>
     </div>
-
+-->
     <div class="col-xs-12 col-md-4">
       <input type="radio" id="opc3" name="gender" onclick="altaConceptos();"> 
       <label for="opc3"> Conceptos. </label>

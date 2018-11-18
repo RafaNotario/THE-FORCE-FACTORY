@@ -66,7 +66,7 @@ if (!isset($_SESSION["user"])) //{
 		<div class="container">
 			<div class="logoG">
 				<img src="img/2.png" class="img-responsive" width="25%">
-	  		<h2>SISTEMA DE ADMINISTRACION</h2>
+	  		<h2>SISTEMA DE ADMINISTRACION T-F-F</h2>
 			</div>
 	  		
 	  			
@@ -101,7 +101,7 @@ $('#ver').click(function(){
 });
 
 $('#pagos').click(function(){
-	$("#main").load("datosAlquiler.php");
+	$("#main").load("datosContrato.php");
 	closeNav();
 });
 

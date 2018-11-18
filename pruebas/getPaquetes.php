@@ -7,7 +7,6 @@
 
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
 
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
 
     <script type="text/javascript">
@@ -36,6 +35,7 @@
 
         $("#update_user_modal").modal("show");
 
+        console.log("status"+status);
       });
 
         function ActualizaPaq(){
@@ -121,12 +121,11 @@ if (!$result = $mysqli->query($sql2)) {
 
 <table>
 <tr>
-<th>CLAVE</th>
-<th>NOMBRE</th>
-<th>COSTO</th>
-
+    <th>CLAVE</th>
+    <th>NOMBRE</th>
+    <th>COSTO</th>
+    <th>DESCRIPCION</th>
 </tr>
-
 
 <?php
 while($row = mysqli_fetch_array($result)) {
@@ -135,6 +134,7 @@ while($row = mysqli_fetch_array($result)) {
     <td class="numero"> <?php echo $row['id_concepto']; ?> </td>
     <td> <?php echo $row['nombreConc'];?> </td>
     <td> <?php echo $row['costo'];?>  </td>
+    <td> <?php echo $row['descripcion'];?>  </td>
 
     <td class="botonVerP"> <button type="button" class="btn btn-primary btn-md" id="myBtnVP">Ver</button> </td>
     <td class="botonElim"> <button type="button" class="btn btn-danger btn-md" id="myBtnEP">Eliminar</button> </td>
@@ -164,7 +164,7 @@ CODIGO PARA MODAL
             <div class="modal-header">
 
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-                <h4 class="modal-title" id="myModalLabel">Datos del paquete de internet</h4>
+                <h4 class="modal-title" id="myModalLabel">Datos del paquete/plan</h4>
             </div>
 
             <div class="modal-body">
