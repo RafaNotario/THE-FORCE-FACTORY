@@ -108,8 +108,9 @@
 
 	<page_footer style="margin-left: 150px;"> 
        <span>theforcefactorymx.com </span> <br>
-        Avenida 11 sur 1456 Cuautlancingo Puebla C.P. 08978 <br>
-        Tel: 2225984218.
+        Direccion: Solares #33 San Juan Cuautlancingo. <br>
+        Tel: 2228205120. <br>
+        Mail: admin@theforcefactorymx.com
     </page_footer> 
 
 

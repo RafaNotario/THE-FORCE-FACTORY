@@ -8,8 +8,8 @@ $dbnombre = "db706972148";
 
 $servidor = "localhost";
 $dbuser = "root";
-$dbpass = "";
-$dbnombre = "ff";
+$dbpass = "0ehn4TNU5I";
+$dbnombre = "admin_tff";
 
 $conex = new mysqli($servidor,$dbuser,$dbpass,$dbnombre);
 

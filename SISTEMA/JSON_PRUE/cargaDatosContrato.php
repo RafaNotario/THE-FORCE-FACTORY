@@ -74,7 +74,7 @@ span#resulatdo{
           
           <div class="form-group col-md-3">
             <span id="resultado">
-              <p align='center'><img width='50px' src='../THE-FORCE-FACTORY/img/wait.gif' /></p>
+              <p align='center'><img width='50px' src='../SISTEMA/img/wait.gif' /></p>
             </span> 
           </div>
 
@@ -86,7 +86,7 @@ span#resulatdo{
 <br>
 <div class = "info-consulta">
 
- <form action="../THE-FORCE-FACTORY/report/report1.php">
+ <form action="../SISTEMA/report/report1.php">
 
     <div class="form-group col-md-3 col-sm-3 ajust">
       <img class="img-responsive img-circle" id="imgn2" alt="USUARIO" src="img/Mp.jpg" width="200px">
@@ -181,7 +181,7 @@ span#resulatdo{
             cargaConcepto();
 
           var select = document.getElementById('concepto');
-          select.addEventListener('change',function(){
+          select.addEventListener('click',function(){
             var selectedOption = this.options[select.selectedIndex];
             //console.log(selectedOption.value +': ' + selectedOption.text+': '+selectedOption.getAttribute("data-costo")+': '+selectedOption.getAttribute("data-descripcion"));
 

@@ -230,10 +230,12 @@ CODIGO PARA MODAL
       cache: false,
       contentType: false,
       processData: false
-    }).done(function(data){
-      $("#resultadoBusqueda").html(data);
+    }).done(function(data,status){
+     // $("#resultadoBusqueda").html("LEEGO:"+data+"<br>"+status);
      
-        if (data === 1 ) {
+       
+        
+        if (data != "1" ) {
           toastr.success(' (y)', 'DATOS INSERTADOS', {timeOut: 5000});
          
         }else{

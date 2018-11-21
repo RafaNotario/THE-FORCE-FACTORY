@@ -8,9 +8,9 @@ $password = 'Jogua1,.-';
 */
 
 $hostname = "localhost";
-$database = "ff";
+$database = "admin_tff";
 $username = "root";
-$password = "";
+$password = "0ehn4TNU5I";
 
 
 

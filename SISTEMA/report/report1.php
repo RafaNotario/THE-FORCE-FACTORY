@@ -19,10 +19,10 @@ try{
 	$mail->SMTPAuth = true;
 	$mail->SMTPSecure = 'tls';//con SSL no envia PROTOCOLO DE SEGURIDAD DE LA CAPA DE TRANSPORTE
 	$mail->Host = "smtp.gmail.com";//smtp.gmail.com
-	$mail->Port = 25;// 587->TLS, 465->SSL
+	$mail->Port = 587;// 587->TLS, 465->SSL tenia 25
 	$mail->Username = "arsagomonitoreo397@gmail.com";//arsagomonitoreo397@gmail.com
 	$mail->Password = "monitoreo6";//monitoreo6
-	$mail->setFrom('arsagomonitoreo397@gmail.com','CONTRATO TFF');//arsagomonitoreo397@gmail.com arsago monitoreo 
+	$mail->setFrom('admin@theforcefactorymx.com','CONTRATO TFF');//arsagomonitoreo397@gmail.com arsago monitoreo 
 	$mail->addAddress($_POST['mail']);
 	
 //PARA QUE EL CORREOS SEA ANALIZADO COMO HTML 

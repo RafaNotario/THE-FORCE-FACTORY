@@ -95,7 +95,7 @@
         <br>        
           
           <div class="form-group">
-            <button type="submit"> ENVIAR </button>          
+            <button type="submit" class="btn btn-success"> ENVIAR </button>          
           </div>
           
             </fieldset>
@@ -103,7 +103,7 @@
       </div>
   </div>
 
-  <button type="button" class="btn btn-info btn-lg" id="myBtn">Ver Lista</button>
+  <button type="button" class="btn btn-info btn-lg" id="myBtn">Ver todos</button>
 
     <span id="res"></span>
     
