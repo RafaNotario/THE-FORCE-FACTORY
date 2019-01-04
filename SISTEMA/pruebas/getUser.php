@@ -1,11 +1,8 @@
-
 <!DOCTYPE html>
 <html lang="es">
 <head>
-
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
 
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
@@ -25,19 +22,21 @@ table, td, th {
 th {
     text-align: left;
   }
-
 </style>
 </head>
-
 <body>
-
 <?php
-
 include("../Modales/prueba1.php");
+//$sql2="SELECT * FROM cliente";
 
-$sql2="SELECT * FROM cliente";
+$sql = "SELECT a.id_cli,a.nombre,a.apellidos,a.direccion,b.status,b.fecha_contrato
+        FROM cliente a
+        LEFT JOIN contrato b
+        ON a.id_cli = b.id_cli
+        ORDER BY a.id_cli
+        ";
 
-if (!$result = $mysqli->query($sql2)) {
+if (!$result = $mysqli->query($sql)) {
         exit(mysqli_error($mysqli));
     }
 //echo "$response";
@@ -49,19 +48,21 @@ if (!$result = $mysqli->query($sql2)) {
 <th>NOMBRE</th>
 <th>APELLIDOS</th>
 <th>DIRECCION</th>
-<th>OPC1</th>
-</tr>
- 
+<th>INSCRIPCION</th>
+<th>FECHA</th>
+</tr> 
 <?php
-
-
 while($row = mysqli_fetch_array($result)) {
 ?>
+
+
   <tr>
     <td class="numero"> <?php echo  $row['id_cli']; ?> </td>
-    <td> <?php echo  $row['nombre']; ?> </td>
-    <td> <?php echo  $row['apellidos']; ?></td>
-    <td> <?php echo  $row['direccion']; ?></td>
+    <td> <?php echo $row['nombre']; ?> </td>
+    <td> <?php echo $row['apellidos']; ?></td>
+    <td> <?php echo $row['direccion']; ?></td>
+    <td> <?php echo $row['status']; ?></td>
+    <td> <?php echo $row['fecha_contrato']; ?></td>
 <!-- 
     <td> <?php //echo  $row['telefono']; ?></td>
     <td> <?php //echo  $row['correo']; ?></td>
@@ -210,18 +211,11 @@ CODIGO PARA MODAL
         console.log(status);
       });
 
-
- 
-
-
-
     function UpdateUserDetails() {
-
       var formData = new FormData(document.getElementById("enviaDatos2"));
  /*     param1 = $("#id_cli").val();
       console.log("oprimido"+param1);
 */
-
     $.ajax({
       url: "Modales/actualizaCli.php",
       type: "POST",
@@ -231,9 +225,7 @@ CODIGO PARA MODAL
       contentType: false,
       processData: false
     }).done(function(data,status){
-     // $("#resultadoBusqueda").html("LEEGO:"+data+"<br>"+status);
-     
-       
+     // $("#resultadoBusqueda").html("LEEGO:"+data+"<br>"+status); 
         
         if (data != "1" ) {
           toastr.success(' (y)', 'DATOS INSERTADOS', {timeOut: 5000});

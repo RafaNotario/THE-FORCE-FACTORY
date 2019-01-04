@@ -54,7 +54,8 @@ if (!isset($_SESSION["user"])) //{
 	
 	<a id="alta" href="#">ALTAS</a>
 	<a id="ver" href="#">INSCRIPCION</a>
-	<a id="pagos" href="#">PAGOS</a>
+	<a id="pagos" href="#">VER TODOS</a>
+	<a id="mensuales" href="#">PAGOS</a>
 	<a href="#">REPORTES</a>
 </div>
 
@@ -101,7 +102,7 @@ $('#ver').click(function(){
 });
 
 $('#pagos').click(function(){
-	$("#main").load("datosContrato.php");
+	$("#main").load("pruebas/getUser.php");
 	closeNav();
 });
 

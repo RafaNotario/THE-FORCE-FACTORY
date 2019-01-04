@@ -45,5 +45,10 @@ foreach ($arra as $key) {
 	echo "
 	";
 }
+
+ALTER TABLE contrato ADD CONSTRAINT contrato_ibfk_1 FOREIGN KEY (id_cli) REFERENCES cliente (id_cli) ON UPDATE CASCADE ON DELETE CASCADE;
+
+ALTER TABLE cliente ADD CONSTRAINT 'cliente_ibfk_1' FOREIGN KEY(id_cli) REFERENCES contrato(id_cli);
+
 */
 ?>
