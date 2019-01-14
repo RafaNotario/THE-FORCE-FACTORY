@@ -14,10 +14,6 @@ table {
     border-collapse: collapse;
 }
 
-table, td, th {
-    border: 1px solid black;
-    padding: 5px;
-}
 
 th {
     text-align: left;
@@ -42,21 +38,27 @@ if (!$result = $mysqli->query($sql)) {
 //echo "$response";
 
 ?>
-<table>
-<tr>
-<th>ID</th>
-<th>NOMBRE</th>
-<th>APELLIDOS</th>
-<th>DIRECCION</th>
-<th>INSCRIPCION</th>
-<th>FECHA</th>
-</tr> 
+
+<table class="table table-hover table-condensed table-striped">
+  <thead class="thead-dark">
+    <tr>
+    <th>#</th>
+    <th>ID</th>
+    <th>NOMBRE</th>
+    <th>APELLIDOS</th>
+    <th>DIRECCION</th>
+    <th>INSCRIPCION</th>
+    <th>FECHA</th>
+    </tr>
+</thead> 
 <?php
+  $i =1;
 while($row = mysqli_fetch_array($result)) {
 ?>
 
 
   <tr>
+    <td> <?php echo $i++ ; ?></td>
     <td class="numero"> <?php echo  $row['id_cli']; ?> </td>
     <td> <?php echo $row['nombre']; ?> </td>
     <td> <?php echo $row['apellidos']; ?></td>
