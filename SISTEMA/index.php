@@ -22,11 +22,9 @@ if (!isset($_SESSION["user"])) //{
 		<script src="js/bootstrap.min.js" charset="utf-8"></script>  
 		
 	<script>
-
 		function enviar(){
 			$("#objetivo").load("contenido.php");
 		}
-
 	</script>
 </head>
  
@@ -34,8 +32,7 @@ if (!isset($_SESSION["user"])) //{
 	
 <header>
 	<div class="contenedor" id="head">
-	  	<span onclick="openNav()">&#9776; MENU </span>
-	  	
+	  	<span onclick="openNav()">&#9776; MENU </span>	  	
 		<?php 
 			echo '<h4> Bienvenido:  ' .$_SESSION["user"].'</h4>';
 			echo '<h5> <a href="logout.php"> Salir </a></h5>';
@@ -52,27 +49,22 @@ if (!isset($_SESSION["user"])) //{
 
 	<a class="closebtn" href="javascript:void(0)" onclick="closeNav()">&times;</a>
 	
+	<a id="asist" href="#">ASISTENCIA</a>
 	<a id="alta" href="#">ALTAS</a>
 	<a id="ver" href="#">INSCRIPCION</a>
+	<a id="mens" href="#">MENSUALIDAD</a>	
 	<a id="pagos" href="#">VER TODOS</a>
-	<a id="mensuales" href="#">PAGOS</a>
-	<a href="#">REPORTES</a>
+
 </div>
 
-
 <section class="container col-md-12 prueba">
-	
-	<div id="main">
-	
+	<div id="main">	
 		<div class="container">
 			<div class="logoG">
 				<img src="img/2.png" class="img-responsive" width="25%">
 	  		<h2>SISTEMA DE ADMINISTRACION T-F-F</h2>
-			</div>
-	  		
-	  			
+			</div>	  			
   		</div>
-
 	</div>
 
 </section>
@@ -91,6 +83,11 @@ $(document).ready(function(){
 	openNav();
 });
 
+$('#asist').click(function(){
+	$("#main").load("JSON_PRUE/asistencia.php");
+	closeNav();
+});
+
 $('#alta').click(function(){
 	$("#main").load("contenido.php");
 	closeNav();
@@ -101,10 +98,19 @@ $('#ver').click(function(){
 	closeNav();
 });
 
+//CODIGO PARA GUARDAR MENSUALIDAD   *
+$('#mens').click(function(){
+	$("#main").load("JSON_PRUE/cargaDatosMensualidad.php");
+	closeNav();
+});
+// *
+
+
 $('#pagos').click(function(){
 	$("#main").load("pruebas/getUser.php");
 	closeNav();
 });
+
 
 function openNav() {
     document.getElementById("mySidenav").style.width = "250px";

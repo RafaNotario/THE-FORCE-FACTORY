@@ -13,30 +13,29 @@ table {
     width: 100%;
     border-collapse: collapse;
 }
-
-
 th {
     text-align: left;
   }
 </style>
 </head>
+
 <body>
 <?php
 include("../Modales/prueba1.php");
 //$sql2="SELECT * FROM cliente";
 
-$sql = "SELECT a.id_cli,a.nombre,a.apellidos,a.direccion,b.status,b.fecha_contrato
+$sql = "SELECT a.id_cli,a.nombre,a.apellidos,a.direccion,b.id_contrato,c.id_contrato,c.fecha_pago,c.fecha_proxPagoM
         FROM cliente a
-        LEFT JOIN contrato b
+        INNER JOIN contrato b
+        INNER JOIN pagos c
         ON a.id_cli = b.id_cli
-        ORDER BY a.id_cli
+        AND b.id_contrato = c.id_contrato
+        ORDER BY c.id_pago DESC
         ";
 
 if (!$result = $mysqli->query($sql)) {
         exit(mysqli_error($mysqli));
     }
-//echo "$response";
-
 ?>
 
 <table class="table table-hover table-condensed table-striped">
@@ -47,33 +46,25 @@ if (!$result = $mysqli->query($sql)) {
     <th>NOMBRE</th>
     <th>APELLIDOS</th>
     <th>DIRECCION</th>
-    <th>INSCRIPCION</th>
-    <th>FECHA</th>
+    <th>ULTIMO</th>
+    <th>PROXIMO</th>
     </tr>
 </thead> 
 <?php
   $i =1;
 while($row = mysqli_fetch_array($result)) {
 ?>
-
-
   <tr>
     <td> <?php echo $i++ ; ?></td>
     <td class="numero"> <?php echo  $row['id_cli']; ?> </td>
     <td> <?php echo $row['nombre']; ?> </td>
     <td> <?php echo $row['apellidos']; ?></td>
     <td> <?php echo $row['direccion']; ?></td>
-    <td> <?php echo $row['status']; ?></td>
-    <td> <?php echo $row['fecha_contrato']; ?></td>
-<!-- 
-    <td> <?php //echo  $row['telefono']; ?></td>
-    <td> <?php //echo  $row['correo']; ?></td>
-    <td> <?php //echo  $row['rfc']; ?></td>
--->
+    <td> <?php echo $row['fecha_pago']; ?></td>
+    <td> <?php echo $row['fecha_proxPagoM']; ?></td>
     <td class="botonVer"> <button type="button" class="btn btn-primary btn-md" id="myBtnV">Ver</button> </td>
     <td class="botonElim"> <button type="button" class="btn btn-danger btn-md" id="myBtnE">Eliminar</button> </td>
   </tr>
-
 
 <?php  
 }
@@ -81,24 +72,17 @@ mysqli_close($mysqli);
 ?>
 
 </table>
-
-
  <!--
 CODIGO PARA MODAL
 -->  
-  <div class="container">
- <!-- <h2>Activate Modal with JavaScript</h2>
-   Trigger the modal with a button 
-  <button type="button" class="btn btn-info btn-lg" id="myBtn">Open Modal</button>
--->
-  <!-- Modal -->
-<!-- Modal - Update User details -->
+<div class="container">
 <div class="modal fade" id="update_user_modal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
     <div class="modal-dialog" role="document">
         <div class="modal-content">
             <div class="modal-header">
 
-                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span>
+                </button>
                 <h4 class="modal-title" id="myModalLabel">Datos del cliente</h4>
             </div>
 <form accept-charset="utf-8" name="enviaDatos2" id="enviaDatos2" method="post" enctype="multipart/form-data">
@@ -169,7 +153,7 @@ CODIGO PARA MODAL
               <button type="button" data-backdrop="false" class="btn btn-primary"   onclick="UpdateUserDetails();" > Actualizar </button>
               <input type="hidden" id="hidden_user_id">
             </div>
-</form>
+      </form>
         </div><!-- modal-content -->
     </div>
 </div>
@@ -210,7 +194,7 @@ CODIGO PARA MODAL
 
             $("#update_user_modal").modal("show");
 
-        console.log(status);
+        console.log("getUser"+status);
       });
 
     function UpdateUserDetails() {
@@ -246,10 +230,7 @@ CODIGO PARA MODAL
         };
 
     });
-
-   
   }
-
 
     function DeleteUser(id) {
       var conf = confirm("DESEA ELIMINAR AL USUARIO CON ID = "+id);
@@ -266,8 +247,6 @@ CODIGO PARA MODAL
     );
   }
 }
-
-
     $(".botonElim").click(function(){
       var val = "";
         // Obtenemos todos los valores contenidos en los <td> de la fila

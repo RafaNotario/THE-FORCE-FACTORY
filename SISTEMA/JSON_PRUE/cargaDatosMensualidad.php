@@ -64,7 +64,7 @@ span#resulatdo{
 <!-- ~~~CODIGO NUEVOO -->    
       <form accept-charset="utf-8" class="form-horizontal" role="form" id="datos_cotizacion">
        <fieldset>
-         <legend> Nuevo contrato. </legend>  
+         <legend> PAGO DE MENSUALIDAD. </legend>  
         <div class="form-row" id="busqueda">          
           <div class="form-group col-md-8">
             <label for="busq" class="col-md-2 control-label">Buscar: </label>
@@ -81,7 +81,7 @@ span#resulatdo{
       </form> 
 <br>
 <div class = "info-consulta">
- <form action="../SISTEMA/report/report1.php">
+ <form role="form" action="../SISTEMA/report/report2Mens.php">
     <div class="form-group col-md-3 col-sm-3 ajust">
       <img class="img-responsive img-circle" id="imgn2" alt="USUARIO" src="img/Mp.jpg" width="200px">
     </div>
@@ -89,17 +89,18 @@ span#resulatdo{
 
   <input type="text" name="idOcul" id="idOcul" class="hide">
 
-  <div class="form-group">
+
+ <div class="form-row">
+  <div class="form-group col-md-7">
     <label for="nmb">Nombre: </label>
     <input type="text" class="form-control" id="nmb" name="titulo">
   </div>
 
-  <div class="form-row">
-
-    <div class="form-group">
+    <div class="form-group col-md-5">
     <label for="nick">Nick Name </label>
     <input type="text" class="form-control" id="nick" name="nick">
   </div>
+</div>
 
   <div class="form-group">
     <label for="direcc">Direccion </label>
@@ -111,34 +112,30 @@ span#resulatdo{
     <input type="text" class="form-control" id="mail" name="mail">
   </div>
 
-</div>
 
+   <div class="form-row">
+
+    <div class="form-group col-md-6">
+      <label for="fechReg">Fecha de Registro.</label>
+      <input type="text" class="form-control" id="fechReg" name="fechReg">
+    </div>
+
+    <div class="form-group col-md-6">
+      <label for="paqC">Paquete contratado:</label>
+      <input type="text" class="form-control" id="paqC" name="paqC">
+    </div>
+  </div>
 
  <div class="form-row">
 
-    <div class="form-group col-md-6">
-      <label for="fech">Fecha Inscripcion</label>
-      <input type="date" class="form-control" id="fech" value="<?php 
-      date_default_timezone_set("America/Mexico_City");
-      echo date('Y-m-d'); ?>">
-    </div>
-
-    <div class="form-group col-md-4">
-      <label for="concepto">Concepto/Paquete.</label>
-      <select name="concepto" id="concepto" class="form-control">PLANES</select>
-    </div>
-
-  </div>
-
-  <div class="form-row">
     <div class="form-group col-md-8">
-      <label for="descriP">Descripcion:</label>
-      <input type="text" class="form-control" id="descriP" name="descriP">
+      <label for="descriM">Descripcion:</label>
+      <input type="text" class="form-control" id="descriM" name="descriM">
     </div>
 
     <div class="form-group col-md-4">
-      <label for="costP">Costo:</label>
-      <input type="text" class="form-control" id="costP" name="costP">
+      <label for="costM">Costo:</label>
+      <input type="text" class="form-control" id="costM" name="costM">
     </div>
 <!-- 
   input oculto para enviar los otros datos del reporte contrato
@@ -146,6 +143,27 @@ span#resulatdo{
   <input type="text" name="vari2" id="vari2" class="hide">
 
   </div>
+
+
+ <div class="form-row">
+
+    <div class="form-group col-md-6">
+      <label for="fechM">Fecha de pago</label>
+      <input type="date" class="form-control" id="fechM" name="fechM" value="<?php 
+      date_default_timezone_set("America/Mexico_City");
+      echo date('Y-m-d'); ?>">
+    </div>
+
+    <div class="form-group col-md-6">
+      <label for="fechProxM">Proximo pago</label>
+      <input type="date" class="form-control" id="fechProxM" name="fechProxM" value="<?php 
+      date_default_timezone_set("America/Mexico_City");
+      echo date('Y-m-d'); ?>">
+    </div>
+
+  </div>
+
+ 
 
  <div class="form-row col-md-7">
 
@@ -163,7 +181,7 @@ span#resulatdo{
       </label>
     </div>
 
-      <button type="submit" class="btn btn-primary" formmethod="post" formtarget="_blank" name="  contrato" onclick="guardaCont();">GUARDAR
+      <button type="submit" class="btn btn-primary" formmethod="post" formtarget="_blank" name="contrato" onclick="guardaMens();">GUARDAR
       </button><!--onclick="guardaCont();" -->
   </div>
 
@@ -180,19 +198,6 @@ span#resulatdo{
 
         window.onload =$(".info-consulta").hide();
         var obt;
-//funcion de evento de select
-        $(document).ready(function(){
-          cargaConcepto();
-
-          var select = document.getElementById('concepto');
-          select.addEventListener('click',function(){
-            var selectedOption = this.options[select.selectedIndex];
-            //console.log(selectedOption.value +': ' + selectedOption.text+': '+selectedOption.getAttribute("data-costo")+': '+selectedOption.getAttribute("data-descripcion"));
-            $('#descriP').val(selectedOption.getAttribute("data-descripcion"));
-            $('#costP').val(selectedOption.getAttribute("data-costo"));
-            $("#vari2").val(selectedOption.getAttribute("data-vlue"));
-          });
-        });
 
         var dataList = document.getElementById('json-datalist');
        
@@ -209,7 +214,7 @@ span#resulatdo{
 //        if( (Number(Chcode) > 64) && (Number(Chcode) < 91) || (Number(Chcode) === 13))// 
   //      {
           var promise = $.ajax({
-            url : "pruebas/busqkeyUp.php",
+            url : "pruebas/busqkeyUpMens.php",
             type : "GET",
             dataType : "HTML",
             data : {param:term},
@@ -223,23 +228,27 @@ span#resulatdo{
               $("#json-datalist").empty();//datalist convertido a objeto jquery
             
             var obt = JSON.parse(data);//parseo de JSON a objeto JS
-
             //ciclo para recorrer el arreglo
             for (var i = obt.length - 1; i >= 0; i--) {
               var option = document.createElement('option');              
               option.value = obt[i]['nombre']+" "+obt[i]['apellidos'];
               dataList.appendChild(option);
             }
-
-          //  $("#resultado").html(data);
-
+            
             if (obt.length === 1 ) {
-              peticion2 = obt[0].id_cli;
-              $("#idOcul").val(obt[0].id_cli);
+              peticion2 = obt[0].id_cli;//variable para ejecutar la promise asinc
+              $("#idOcul").val(obt[0].id_contrato);
               $("#nmb").val(obt[0].nombre+" "+obt[0].apellidos);
               $("#nick").val(obt[0].nick);
               $("#mail").val(obt[0].correo);
               $("#direcc").val(obt[0].direccion);
+
+              $("#fechReg").val(obt[0].fecha_contrato);
+              $("#paqC").val(obt[0].nombreConc);
+              $("#descriM").val(obt[0].descripcion);
+              $("#costM").val(obt[0].costo);
+
+
 
               $(".info-consulta").show();
             }
@@ -260,30 +269,16 @@ span#resulatdo{
             }
               $('#resultado').hide();
           });
-//}else{
-  //  console.log("ln 84 if Oprimio -> "+Chcode);
- // }
+
 });
 
-    function cargaConcepto(){
-       $.get('JSON_PRUE/carga-select.php', function(data) {
-      obt = JSON.parse(data);
-    //  console.log(data);
+    function guardaMens(){
+      console.log("GUARDA MENSULAIDAD");   
 
-    for (var i = obt.length - 1; i >= 0; i--) {
-      $("#concepto").append('<option value="'+obt[i]['id_concepto']+'" data-costo="'+obt[i]['costo']+'" data-vlue="'+obt[i]['nombreConc']+'" data-descripcion="'+obt[i]['descripcion']+'">'+obt[i]['nombreConc']+'</option>');   
-    }
+      var idcont = $("#idOcul").val();
+      var fechPagoM = $("#fechM").val();
+      var fechProxPagM = $("#fechProxM").val();
 
-    }); // close getJSON()
-    }
-
-
-    function guardaCont(){
-      console.log("GUARDA CONTRATO");      
-      var idclient = $("#idOcul").val();
-      var idoption = $("#concepto").val();
-      var fechcont = $("#fech").val();
-      var mesI = convertDateFormat(fechcont);
       var pay = "";
       var cor="";
 
@@ -299,20 +294,17 @@ span#resulatdo{
         cor="0";
       }
 
-      alert("pgo"+pay);
-
           jQuery.post("api/altas.php",{
-            idcli:idclient,
-            idopt:idoption,
-            fechc:fechcont,
-            mesin:mesI,
+            idcontr:idcont,
+            fpm:fechPagoM,
+            fppm:fechProxPagM,           
             pag:pay,
-
-            funcion:"funcion2"
+            funcion:"funcionMens"
           }, function(data, textStatus){
             if(data != 0){
-              $('#res').html("Contrato No. "+data+" insertado correctamente");
+              $('#res').html("Mensualidad insertada correctamente");
               $('#res').css('color','green');
+
               console.log("textStatus: "+textStatus);
               //$("#resultadoBusqueda").load("pruebas/getPaquetes.php");
             }
@@ -331,53 +323,5 @@ span#resulatdo{
     MOVIL, TABLET,CEL
   4. .bind()
 */
-
-function convertDateFormat(string) {
-  var info = string.split('-');
-  var mes = "";
-
-  switch(info[1]){
-    case "01":
-      mes = "Enero";
-    break;
-    case "02":
-      mes = "Febrero";
-    break;
-    case "03":
-      mes = "Marzo";
-    break;
-    case "04":
-      mes = "Abril";
-    break;
-    case "05":
-      mes = "Mayo";
-    break;
-    case "06":
-      mes = "Junio";
-    break;
-    case "07":
-      mes = "Julio";
-    break;
-    case "08":
-      mes = "Agosto";
-    break;
-    case "09":
-      mes = "Septiembre";
-    break;
-    case "10":
-      mes = "Octubre";
-    break;
-    case "11":
-      mes = "Noviembre";
-    break;
-    case "12":
-      mes = "Diciembre";
-    break;
-
-    default:
-    mes="ERROR DE FECHA";
-}
-  return mes;
-}
 </script>
 

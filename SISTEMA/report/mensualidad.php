@@ -60,7 +60,8 @@
 		tr:nth-child(even) {
 		    background-color: rgba(242,190,84,.6)!important;
 		}
-		
+
+
 		#cabecera h1{
 			display: block;
 			float: left;
@@ -120,7 +121,8 @@
 				<!--<img src="https://html2pdf.fr/img/_langue/es/logo.gif"> -->
 				<img src="../img/report.jpg" alt="LOGO T-F-F">
 
-				<h1>RECIBO DE INSCRIPCION</h1> 
+				<h4>RECIBO MENSUALIDAD</h4>
+				<h4>Estimado (a):</h4>
 				<h2><?=$_POST['titulo']?></h2>
 				<h4>Direccion: <?php echo $_POST['direcc']; ?></h4>
 				<h5>No. de Cliente: <?php echo $_POST['idOcul']; ?></h5>
@@ -131,21 +133,35 @@
 
 <div class="caja">
 
-<table>
+<table id="customers">
   <tr>
-    <td>Nombre de paquete:</td>
-    <td><span> <?=$_POST['vari2']; ?></span></td>
+    <td><b>Nombre de paquete: </b></td>
+    <td> <?=$_POST['paqC']; ?></td>
   </tr>
   <tr>
-    <td>Descripcion: </td>
-    <td><span> <?=$_POST['descriP']; ?></span></td>
+    <td><b>Descripcion:</b> </td>
+    <td> <?=$_POST['descriM']; ?></td>
   </tr>
   <tr>
-    <td>Costo: </td>		
-    <td><span> <?=$_POST['costP']; ?></span></td>
+    <td><b>Costo:</b> </td>		
+    <td> <?=$_POST['costM']; ?></td>
+  </tr>
+
+  <tr>
+  	<td> <b>FECHA DE PAGO:</b> <br>
+  		<?=$_POST['fechM']; ?>
+  	</td>
+	
+	<td> <b>FECHA DE PROXIMO PAGO: </b> <br>
+			<?=$_POST['fechProxM']; ?>
+	</td>
   </tr>
 
 </table>
+
+
+
+	
 </div>
 
 <br>
