@@ -1,6 +1,4 @@
 
-
-
   <style type="text/css">
 
     #GContent{
@@ -11,33 +9,26 @@
 
 <html>
  <div id="GContent" class="container">
-    
       <div class="col-md-6 col-md-offset-3 col-sm-8">
         <form name="nuevo_contrato" method="post">
           <fieldset>
             <legend> Ingrese características del plan. </legend>
-
-
           <br>
-
           <div class="form-group">
             <label for="nomCon"> Nombre/Identificador del plan: </label>
             <input type="text" name="nomCon" id="nomCon" placeholder="Identificador" class="form-control">
           </div>
           <br>
-
           <div class="form-group">
             <label for="descri"> Descripcion: </label>
             <input type="text" name="descri" id="descri" placeholder="Descripcion del " class="form-control">
           </div>            
           <br>
-
           <div class="form-group">
             <label for="prec"> Costo $: </label>
             <input type="text" name="prec" id="prec" placeholder="Costo del paquete" class="form-control">
           </div>
           <br>
-
           <div class="form-group">
             <input type="button" name="altaContr" id="altaContr" value="Enviar" class="btn btn-success">
           </div>

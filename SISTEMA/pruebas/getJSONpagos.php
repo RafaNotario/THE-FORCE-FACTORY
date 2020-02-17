@@ -1,8 +1,9 @@
+
 <?php  
-/*ARCHIVO QUE LLENA EL MODAL DE CLIENTES*/
+/*ARCHIVO DE PRUEBA PARA OBTENER LAS ASISTENCIAS*/
 include("../Modales/prueba1.php");
 
-$var = $_GET['param'];
+$var = $_GET['parampagos'];
 
 //FILTRO ANTI XSS
 $caracteres_malos = array("<",">","\"","'","","<",">","'","/");
@@ -12,11 +13,15 @@ $consultaBusqueda = str_replace($caracteres_malos, $caracteres_buenos, $var);
 if(isset($consultaBusqueda))
 {
 
-$query = "SELECT a.id_cli,a.nombre,a.apellidos,a.direccion,a.nick,a.fechaInicio,b.id_contrato,b.id_cli
-        FROM cliente a
-        INNER JOIN contrato b
-        ON a.id_cli = b.id_cli
-        AND CONCAT(nombre,' ',apellidos) LIKE '".$consultaBusqueda."%' ORDER BY a.nombre DESC
+//$query = "SELECT * FROM asistencias WHERE id_cli = '".$consultaBusqueda."' ORDER BY fecha DESC";
+    $query = "SELECT p.*,c.id_cli,a.id_cli
+        FROM pagos p
+        INNER JOIN contrato c
+        INNER JOIN cliente a
+        ON c.id_cli = a.id_cli
+        AND c.id_contrato = p.id_contrato
+        AND a.id_cli = '".$consultaBusqueda."' 
+        ORDER BY p.id_pago DESC
         ";
 
 $response = array();
@@ -33,6 +38,7 @@ while($row = mysqli_fetch_array($result))
 
         $i++;
     }
+	
 echo json_encode($response);
 
 }else{

@@ -104,10 +104,16 @@
     }).done(function(data){
       $("#resultadoBusqueda").html(data);
         if (data ==1 ) {
-          toastr.success(' (y)', 'DATOS INSERTADOS', {timeOut: 5000});
+          toastr.success('Correctamente', 'CLIENTE GUARDADO', {timeOut: 5000});
         }else{
+
+          if (data == 5) {
+            toastr.warning('Ya exite usuario', 'Warning', {timeOut: 5000})
+          }else{
+          toastr.error('ERROR','No se realizo el guardado', {timeOut: 5000})
           $('#res').html("Ha ocurrido un error.");
           $('#res').css('color','red');
+          }
         }
     })
   });  

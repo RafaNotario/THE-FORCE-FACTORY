@@ -20,9 +20,7 @@ $query = "SELECT
 		INNER JOIN conceptos d
 		ON a.id_cli = c.id_cli
 		AND c.id_concepto = d.id_concepto
-		AND CONCAT(nombre,' ',apellidos) LIKE '".$consultaBusqueda."%' "; 
-		 
-
+		AND CONCAT(nombre,' ',apellidos) LIKE '".$consultaBusqueda."%' ";
 //SELECT * FROM cliente WHERE id_cli = 1 -> id_cli,nombre,apellidos,nick,direccion,celular,correo,rfc,fechaInicio,foto
 
 $response = array();

@@ -1,0 +1,71 @@
+SELECT id_contrato,id_cli,id_concepto FROM contrato WHERE id_cli IN (SELECT id_cli FROM contrato GROUP BY id_contrato,id_cli,id_concepto HAVING count(id_cli >1))
+ORDER BY id_contrato,id_cli,id_concepto;
+
+CREATE TABLE IF NOT EXISTS asistencias(
+	id_asist INT NOT NULL AUTO_INCREMENT,
+	id_cli INT NOT NULL,
+	fecha DATE,
+	PRIMARY KEY (id_asist),
+	FOREIGN KEY (id_cli)
+	REFERENCES cliente(id_cli) ON UPDATE CASCADE ON DELETE CASCADE
+)ENGINE=INNODB;
+
+
+ALTER TABLE asistencias ADD FOREIGN KEY (id_cli) REFERENCES cliente (id_cli) ON UPDATE CASCADE ON DELETE CASCADE;
+
+$sql = "SELECT a.id_cli,a.nombre,a.apellidos,a.direccion,b.id_contrato,c.id_contrato,c.fecha_pago,c.fecha_proxPagoM
+        FROM cliente a
+        INNER JOIN contrato b
+        INNER JOIN pagos c
+        ON a.id_cli = b.id_cli
+        AND b.id_contrato = c.id_contrato
+        ORDER BY a.id_cli
+        ";
+
+        
+		SELECT
+			a.id_cli,a.nombre,a.apellidos,a.nick,a.direccion,c.id_cli,c.id_contrato,c.id_concepto,c.fecha_contrato,d.id_concepto,d.nombreConc,d.descripcion,d.costo,p.id_pago,p.id_contrato,p.fecha_proxPagoM
+		FROM cliente a
+		INNER JOIN contrato c
+		INNER JOIN conceptos d
+		INNER JOIN pagos p
+		ON a.id_cli = c.id_cli
+		AND c.id_concepto = d.id_concepto
+		AND c.id_contrato = p.id_contrato
+		AND CONCAT(nombre,' ',apellidos) LIKE '".$consultaBusqueda."%'
+
+
+		    function guardaAsist(){
+      console.log("GUARDA ASISTENCIA");
+
+      var idcliAsist = $("#idOcul").val();
+      var fasist = $("#fechProxM").val();
+
+          jQuery.post("api/altas.php",{
+            idAsis:idcliAsist,
+            fasist:fechAsist           
+            funcion:"funcionAsist"
+          }, function(data, textStatus){
+
+            if(data != 0){
+              $('#res').html("Asistencia insertada correctamente");
+              $('#res').css('color','green');
+              console.log("textStatus: "+textStatus);
+              //$("#resultadoBusqueda").load("pruebas/getPaquetes.php");
+            }
+            else{
+              $('#res').html("Ha ocurrido un error.asistencia ln 309");
+              $('#res').css('color','red');
+            }
+          });
+    }
+
+    $query = "SELECT p.*,c.id_cli,a.id_cli
+        FROM pagos p
+        INNER JOIN contrato c
+        INNER JOIN cliente a
+        ON c.id_cli = a.id_cli
+        AND c.id_contrato = p.id_contrato
+        AND a.id_cli = 149
+        ORDER BY p.id_pago DESC
+        ";

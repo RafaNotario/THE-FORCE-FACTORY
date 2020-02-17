@@ -22,7 +22,7 @@ try{
 	$mail->Port = 587;// 587->TLS, 465->SSL tenia 25
 	$mail->Username = "arsagomonitoreo397@gmail.com";//arsagomonitoreo397@gmail.com
 	$mail->Password = "1-Bikepsito1000000";//monitoreo6
-	$mail->setFrom('admin@theforcefactorymx.com','CONTRATO TFF');//arsagomonitoreo397@gmail.com arsago monitoreo 
+	$mail->setFrom('admin@theforcefactorymx.com','CONTRATO TFF');//arsagomonitoreo397@gmail.com arsago monitoreo
 	$mail->addAddress($_POST['mail']);
 	
 //PARA QUE EL CORREOS SEA ANALIZADO COMO HTML 
@@ -34,7 +34,7 @@ try{
 	
 	$mail->addCC('kebokorps@hotmail.com','COPIA CONTRATO');//enviar copia de carbon a mas destinatarios visible para todos
 	
-	$mail->addBCC('rafaelnotariorodriguez@gmail.com','COPIA CONTRATO');//copia de carbon no visible en la lista de remitentes
+	$mail->addCC('rafaelnotariorodriguez@gmail.com','COPIA CONTRATO');//copia de carbon no visible en la lista de remitentes addBCC
 	$mail->Body = 'Contrato de inscripcion The Force Factory';
 	date_default_timezone_set("America/Mexico_City");
 	$mail->addStringAttachment($doc,'C_'.Date("Y-m-d",time()).'.pdf','base64','application/pdf');

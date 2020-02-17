@@ -8,11 +8,10 @@ if(isset($_POST['param']) && isset($_POST['param']) != "")
 
 $var = $_POST['param'];
 
-$query = "SELECT * FROM cliente where id_cli = '".$var."' ";
+$query = "SELECT id_cli,foto FROM cliente where id_cli = '".$var."' ";
 //SELECT * FROM cliente WHERE id_cli = 1 -> id_cli,nombre,apellidos,nick,direccion,celular,correo,rfc,fechaInicio,foto
 
 $response = array();
-52070143 400
 
 if($resultado = $mysqli->query($query)) {
 //     $formulario = mysqli_fetch_array($resultado, MYSQLI_ASSOC);
@@ -33,21 +32,5 @@ echo json_encode($response);
 	$response['message'] = "Invalid Request!";
 	echo json_encode($response);
   }
-//echo "$response";
-
-/*
-$resultado=$mysqli->query($query);
-print("<table>");
-while ($rows = $resultado->fetch_assoc()) {
-print("<tr>");
-print("<td>".$rows["id_cliente"]."</td>");
-print("<td>".$rows["nombre"]."</td>");
-print("<td>".$rows["apellidos"]."</td>");
-print("</tr>");
-}
-print("</table>");
-$resultado->free();
-*/
 
 ?>
-

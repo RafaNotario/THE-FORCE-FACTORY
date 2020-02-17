@@ -4,8 +4,7 @@
 }
 
 body{
-	background: #FDFCFA;/* #FDFCFA #3EF5BB */
-    
+	background: #FDFCFA;/* #FDFCFA #3EF5BB */    
 }
 
 header{
@@ -30,14 +29,12 @@ header{
 	text-decoration: none;
 	margin-bottom: 5px;
 }
-
 header a{
 	width: 40px;
  	background: rgba(255,255,255,0.3);
 	color: white;
 	padding: 5px;
 }
-
 header span{
     float: left;
     margin:0; 
@@ -45,9 +42,6 @@ header span{
     font-size:20px;
     cursor:pointer;
 }
-
-
-
 /* CSS MENU */
 .sidenav {
     height: 100%;

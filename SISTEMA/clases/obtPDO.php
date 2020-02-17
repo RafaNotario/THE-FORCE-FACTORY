@@ -18,3 +18,6 @@ require_once 'Conexion.php';
 	}
 		$dbh = null;
  ?>
+
+ DOCUMENTACION
+ CAPTCHA

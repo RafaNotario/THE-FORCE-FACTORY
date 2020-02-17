@@ -1,11 +1,17 @@
 
-<style type="text/css">
-  
+<link href="//cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/css/toastr.min.css" rel="stylesheet">
+<link rel="stylesheet" type="text/css" href="css/bootstrap.min.css">
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js" integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8=" crossorigin="anonymous"></script>
+<!-- PRUEBAS TOAST  -->
+    <script type="text/javascript" src="//cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/js/toastr.min.js">
+    </script>
+
+<style type="text/css">  
   .flotForm{
   display: inline-block;
   vertical-align: top;
  }
-
 label{
   font-size: 1.8rem;
   font-family: 'Oswald', serif;
@@ -13,23 +19,26 @@ label{
 input#busq{
   text-transform: uppercase;
 } 
-
 div.#frm-muestra{
   text-align: center;
 }
-
 div.info-consulta{
   width: 100vw;
   margin-top: 20px;
   margin-bottom: 25px;
 }
-
+table {
+    width: 100%;
+    border-collapse: collapse;
+}
+th {
+    text-align: left;
+}
 @media only screen and (max-width: 768px) {
     .flotForm{
         width: 95%;
         margin: 0 auto;
     }
-
     .ajust{
     margin: 0 auto;
     width: 70%;
@@ -58,21 +67,14 @@ span#resulatdo{
   transition: all .3s ease;
   cursor: pointer;
 }
-
 .cor:hover{
   background-color: #fe4918;
   color: white;
 }
-
-.perfilfot{
-  border: 20px solid green;
-}
-.perfilfotVen{
-  border: 20px solid red;
-}
-
-.status{
-
+.busqueda{
+  display: block;
+  float: left;
+  margin: 10px;
 }
 </style>
 
@@ -83,11 +85,13 @@ span#resulatdo{
        <fieldset>
          <legend> REGISTRE LA ASISTENCIA DEL DIA. </legend>  
           <div class="form-row" id="busqueda">          
-            <div class="form-group col-md-8">
+            <div class="form-group col-md-5">
               <label for="busq" class="col-md-6 control-label">Buscar Cliente: </label>
               <input id="busq" list="json-datalist" class="input_list form-control" autocomplete="off">
               <datalist id="json-datalist"></datalist>
-            </div>          
+              <button class="busqueda info btn btn-info" onclick="setTimeout(cargainfo ,2000);" id="busqued">Busca</button>
+
+            </div>       
             <div class="form-group col-md-3">
               <span id="resultado">
                 <p align='center'><img width='50px' src='../SISTEMA/img/wait.gif' /></p>
@@ -98,7 +102,7 @@ span#resulatdo{
       </form> 
 <br>
 <div class = "info-consulta">
- <form role="form">
+ <form role="form" accept-charset="utf-8" id="enviaDatosAsist" method="post">
   
   <div class="form-row">
     <div class="form-group col-md-4 estatus">
@@ -153,9 +157,14 @@ span#resulatdo{
       echo date('Y-m-d'); ?>">
     </div>
 
-    <button type="submit" class="btn btn-success" id="boton" onclick="guardaAsist();"> ENVIAR </button><!--onclick="guardaCont();" -->
+    <button type="submit" class="btn btn-success" id="boton"> ENVIAR </button><!--onclick="guardaCont();" -->
 
-  <span id="res"></span>
+  <span id="res">
+  </span>
+
+    <table id="tabla" class="table table-hover table-condensed table-striped">
+    </table>
+
 </div>
 
 </form>
@@ -166,139 +175,27 @@ span#resulatdo{
 
 <script type="text/javascript">
 
-var contador = 0;
-        window.onload =$(".info-consulta").hide();
+  var contador = 0;
+       
+        $(".info-consulta").hide();
+
         var obt;
 
         var dataList = document.getElementById('json-datalist');
        
-        var peticion2 = null;/*variable para consulta con PROMISE*/
+        var peticion2 = new Array(7);/*variable para consulta con PROMISE*/
         var param3 = null; //variables para comparar vigencia
         var compar = null;
 
         $('#busq').focus();
 
-        $('#busq').on('input',function(tecla){//tenia keyup()
+        $('#busq').on('input',function(){//tenia keyup()   
+          buscar();
+        });
 
-        var Chcode = Number(tecla.which);
-        var term = $("#busq").val();
+$('#enviaDatosAsist').on("submit",function(e){
 
-          var promise = $.ajax({
-            url : "pruebas/busqkeyUpAsist.php",
-            type : "GET",
-            dataType : "HTML",
-            data : {param:term},
-            cache : false,
-            contentType : false,
-            beforeSend: function(){
-                          //imagen de carga
-                         // alert("ANTES");
-                        $('#resultado').show();
-                    },
-            success : function(data,status){
-                      //    alert(data);
-
-              $("#json-datalist").empty();//datalist convertido a objeto jquery
-            
-            var obt = JSON.parse(data);//parseo de JSON a objeto JS
-            //ciclo para recorrer el arreglo
-            for (var i = obt.length - 1; i >= 0; i--) {
-              var option = document.createElement('option');              
-              option.value = obt[i]['nombre']+" "+obt[i]['apellidos'];
-              dataList.appendChild(option);
-            }
-//alert(contsL);
-//            console.log("Letra "+obt.length);
-
-            if (obt.length >= 1 ) {
-              peticion2 = obt[0].id_cli;//variable para ejecutar la promise asinc
-              param3 = obt[0].id_contrato;
-
-              $("#idOcul").val(peticion2);
-              
-              $("#nmb").val(obt[0].nombre+" "+obt[0].apellidos);
-              $("#nick").val(obt[0].nick);
-              $("#direcc").val(obt[0].direccion);
-              $("#fechReg").val(obt[0].fechaInicio);
-
-              $("#contN").html(param3);
-              //$("#fechReg").val(obt[0].fecha_contrato);
-
-              $(".info-consulta").show();
-
-              obt = null;
-            }
-            },
-            error : function(xhr,status){
-              alert('Ha ocurrido un error ln -234');
-            },
-            complete: function(xhr,status){            
-            }
-          });//
-
-          promise.then(function(){
-            if (peticion2 != null) {
-              $.post("Modales/formularioLL.php",{param:peticion2},function(data,status){       // console.log("post2 "+status);
-                    var user = JSON.parse(data);
-                    $("#imgn2").attr("src", "data:image/png;base64,"+user.foto);
-              });
-
-              $.post("api/altas.php",{funcion:"getfech",param2:param3},function(data,status){
-
-//                console.log("llego: "+data);
-
-               $("#fechP").html(data);
-               compar = data;
-              });
-
-              var compar2 = $("#fechProxM").val();
-
-              if (compar != null) {
-                var nodo = document.getElementById("imgn2");
-
-                nodo.classList.remove("perfilfot");
-                nodo.classList.remove("perfilfotVen");
-
-                var Fec1 = compar.split("-");
-                var Fec2 = compar2.split("-");
-
-                if (Number(Fec1[0]) >= Number(Fec2[0])) {
-                  if (Number(Fec1[1]) >= Number(Fec2[1])) {
-                    if (Number(Fec1[2]) >= Number(Fec2[2])) {
-
-                      $("#statu").html("ACTIVO");
-
-                      
-                      nodo.classList.add("perfilfot");
-
-                      document.getElementById("boton").disabled = false;
-
-                    }else{
-                      $("#statu").html("VENCIDO");
-                      nodo.classList.add("perfilfotVen");
-                      document.getElementById("boton").disabled = true;
-                    }
-                  }else{
-                    $("#statu").html("MES VENCIDO");
-                    nodo.classList.add("perfilfotVen");
-                    document.getElementById("boton").disabled = true;
-                  }
-                }else{
-                  $("#statu").html("AÑO VENCIDO");
-                  nodo.classList.add("perfilfotVen");
-                  document.getElementById("boton").disabled = true;
-                }
-                console.log(Fec1[0]+"  "+Fec1[1]+"  "+Fec1[2]);
-                console.log(Fec2[0]+"  "+Fec2[1]+"  "+Fec2[2]);
-              }
-            }
-              $('#resultado').hide();
-          });
-
-});
-
-    function guardaAsist(){
-      console.log("GUARDA ASISTENCIA");
+  e.preventDefault();
 
       var idcont = $("#idOcul").val();
       var fechAsist = $("#fechProxM").val();
@@ -309,17 +206,173 @@ var contador = 0;
             funcion:"funcionAsist"
           }, function(data, textStatus){
             if(data != 0){
+              toastr.success('Correctamente', 'ASISTENCIA GUARDADA', {timeOut: 5000});
               $('#res').html("Asistencia insertada correctamente");
               $('#res').css('color','green');
 
-              console.log("textStatus: "+textStatus);
-              //$("#resultadoBusqueda").load("pruebas/getPaquetes.php");
-            }
-            else{
+  /*CREAR TABLA DE ASISTENCIAS*/
+              var d = '<thead class='+'thead-dark'+'>'+
+                '<tr>'+
+                '<th>Id_Asistencia</th>'+
+                '<th>Id_Cliente</th>'+
+                '<th> Fecha </th>'+
+                '</tr>'+
+                '</thead>';
+
+      $.get('pruebas/getJSONasistencia.php',{param:idcont}, function(data) {
+        var datos = JSON.parse(data);
+              $("#tabla tr").remove(); 
+
+        for (var i = 0; i < datos.length; i++) {
+         d+= '<tr>'+
+         '<td>'+datos[i].id_asist+'</td>'+
+         '<td>'+datos[i].id_cli+'</td>'+
+         '<td>'+datos[i].fecha+'</td>'+
+         '</tr>';
+         }
+
+        $("#tabla").append(d);
+    }); // close getJSON() 
+             
+
+              }else{
+              toastr.error('ERROR','No se realizo el guardado', {timeOut: 5000});
               $('#res').html("Ha ocurrido un error.");
               $('#res').css('color','red');
             }
           });
+$('#busq').val("");
+$('#busq').focus();
+$("#tabla tr").remove(); 
+
+});
+
+function buscar(){
+    var term = $("#busq").val();
+
+            $.ajax({
+              url : "pruebas/busqkeyUpAsist.php",
+              type : "GET",
+              dataType : "HTML",
+              data : {param:term},
+              cache : false,
+              contentType : false,
+            beforeSend: function(){
+                  $('#resultado').show();
+                    },
+            success : function(data,status){
+                  $("#json-datalist").empty();//datalist convertido a objeto jquery
+            
+            var obt = JSON.parse(data);//parseo de JSON a objeto JS
+
+      for (var i = obt.length - 1; i >= 0; i--) {
+        if(obt[i]['nombre'].replace(/ /g,"")+obt[i]['apellidos'].replace(/ /g,"") != term.replace(/ /g,"")){
+
+                var option = document.createElement('option');              
+                option.value = obt[i]['nombre']+" "+obt[i]['apellidos'];
+                dataList.appendChild(option);
+              }
+        }
+            
+            if (obt.length === Number(1)) {
+              peticion2[0] = obt[0].id_cli;
+              peticion2[1] = obt[0].nombre;
+              peticion2[2] = obt[0].apellidos;
+              peticion2[3] = obt[0].nick;
+              peticion2[4] = obt[0].direccion;
+              peticion2[5] = obt[0].id_contrato;
+              peticion2[6] = obt[0].fechaInicio;
+
+              $.post("api/altas.php",{funcion:"getfech",param2:peticion2[5]},function(data,status){
+                $("#fechP").html(data);
+                compar = data;
+              });
+              $("#tabla tr").remove();
+
+
+            }//if length    
+            },
+            error : function(xhr,status){
+              alert('Ha ocurrido un error ln -297');
+            },
+            complete: function(xhr,status){
+            $(".info-consulta").hide();
+            
+           
+            }
+
+          });     
+}//function buscar()
+
+
+function cargainfo(){
+
+  var cad = $("#busq").val();
+
+  if (cad.length > Number(0)) {
+
+  $.post("Modales/returnFoto.php",{param:peticion2[0]},function(data,status){       // console.log("post2 "+status);
+    var user = JSON.parse(data);
+    $("#imgn2").attr("src", "data:image/png;base64,"+user.foto);
+  });
+
+  var compar2 = $("#fechProxM").val();
+
+    $("#idOcul").val(peticion2[0]);
+    $("#nmb").val(peticion2[1]+" "+peticion2[2]);
+    $("#nick").val(peticion2[3]);
+    $("#direcc").val(peticion2[4]);
+    $("#fechReg").val(peticion2[6]);
+    $("#contN").html(peticion2[5]);
+    $('#res').html("");
+    $(".info-consulta").show();
+    $('#resultado').hide();
+    
+
+    compara(compar,compar2);
+
+      /*CREAR TABLA DE ASISTENCIAS*/
+              var d = '<thead class='+'thead-dark'+'>'+
+                '<tr>'+
+                '<th>Id_Asistencia</th>'+
+                '<th>Id_Cliente</th>'+
+                '<th> Fecha </th>'+
+                '</tr>'+
+                '</thead>';
+
+      $.get('pruebas/getJSONasistencia.php',{param:peticion2[0]}, function(data) {
+        var datos = JSON.parse(data);
+              $("#tabla tr").remove(); 
+
+        for (var i = 0; i < datos.length; i++) {
+         d+= '<tr>'+
+         '<td>'+datos[i].id_asist+'</td>'+
+         '<td>'+datos[i].id_cli+'</td>'+
+         '<td>'+datos[i].fecha+'</td>'+
+         '</tr>';
+         }
+
+        $("#tabla").append(d);
+   }); // close getJSON() 
+  }else{
+    toastr.error('ERROR','Campo de busqueda vacio', {timeOut: 5000})
+  }
+}//cargainfo()
+
+function compara(compar,compar2){
+  if (compar != null){
+
+    if( (new Date(compar).getTime() >= new Date(compar2).getTime()))
+    {
+      $("#statu").html("ACTIVO");
+      document.getElementById("boton").disabled = false;
+    }else{
+      document.getElementById("boton").disabled = true;
+      $("#statu").html("VENCIDO");
+      $('#res').html("Ir a MENU>> <a href="+"#"+"> MENSUALIDAD </a>");
     }
+  }//compar != null
+
+}
 </script>
 

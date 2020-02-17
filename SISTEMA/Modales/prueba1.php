@@ -2,6 +2,7 @@
 <?php 
 
 require_once 'mysql-login.php';
+
 $mysqli = new mysqli($hostname, $username,$password, $database);
 
 if ($mysqli -> connect_errno) {

@@ -1,54 +1,50 @@
+<link href="//cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/css/toastr.min.css" rel="stylesheet">
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js" integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8=" crossorigin="anonymous"></script>
+<!-- PRUEBAS TOAST  -->
+    <script type="text/javascript" src="//cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/js/toastr.min.js">
+    </script>
 
-<style type="text/css">
-  
+<style type="text/css"> 
   .flotForm{
   display: inline-block;
   vertical-align: top;
 }
-
 input#busq{
   text-transform: uppercase;
 } 
-
 div.#frm-muestra{
   text-align: center;
 }
-
 div.info-consulta{
   width: 100vw;
   margin-top: 20px;
   margin-bottom: 25px;
   background-color:black;
-
 }
-
-@media only screen and (max-width: 600px) {
+@media only screen and (max-width: 768px) {
     .flotForm{
-        background-color: lightblue;
         width: 100%;
+        margin: 0 auto;
     }
-
     .ajust{
     margin: 0 auto;
     width: 70%;
     padding-bottom: 20px;
+    padding-top: 0px;
   }
 }
-
 div#busqueda{
   position: relative;
   width: 90%;
 }
-
 span#resulatdo{
   position: absolute;
   width: 30%;
 }
-
-#res{
+span#res{
+  width: 50%;
   display: block;
 }
-
 .cor{
   background-color: rgba(3,165,150,0.5);
   border-radius: 5px;
@@ -83,7 +79,7 @@ span#resulatdo{
 <div class = "info-consulta">
  <form role="form" action="../SISTEMA/report/report2Mens.php">
     <div class="form-group col-md-3 col-sm-3 ajust">
-      <img class="img-responsive img-circle" id="imgn2" alt="USUARIO" src="img/Mp.jpg" width="200px">
+      <img class="img-responsive" id="imgn2" alt="USUARIO" src="img/Mp.jpg" width="200px">
     </div>
 <div class="flotForm col-sm-9 col-md-7 col-xs-5 col-lg-4">
 
@@ -191,6 +187,9 @@ span#resulatdo{
 </form>
 
 </div><!-- .info-consulta -->
+<br>
+    <table id="tabla" class="table table-hover table-condensed table-striped">
+    </table>
 
 </html>
 
@@ -248,8 +247,6 @@ span#resulatdo{
               $("#descriM").val(obt[0].descripcion);
               $("#costM").val(obt[0].costo);
 
-
-
               $(".info-consulta").show();
             }
             },
@@ -262,10 +259,37 @@ span#resulatdo{
 
           promise.then(function(){
             if (peticion2 != null) {
+
               $.post("Modales/formularioLL.php",{param:peticion2},function(data,status){        
                     var user = JSON.parse(data);
                     $("#imgn2").attr("src", "data:image/png;base64,"+user.foto);
               });
+
+        /*CREAR TABLA DE PAGOS*/
+                var d = '<thead class='+'thead-dark'+'>'+
+                '<tr>'+
+                '<th>Id_Pago</th>'+
+                '<th>F_Pago</th>'+
+                '<th>F_ProxPago </th>'+
+                '</tr>'+
+                '</thead>';
+
+            $.get('pruebas/getJSONpagos.php',{parampagos:peticion2}, function(data) {
+
+              $("span#res").html("<br><h3>Historial de pagos</h3>")
+                var datos = JSON.parse(data);
+                $("#tabla tr").remove(); 
+
+            for (var i = 0; i < datos.length; i++) {
+             d+= '<tr>'+
+             '<td>'+datos[i].id_pago+'</td>'+
+             '<td>'+datos[i].fecha_pago+'</td>'+
+             '<td>'+datos[i].fecha_proxPagoM+'</td>'+
+             '</tr>';
+             }
+
+            $("#tabla").append(d);
+              }); // close getJSON()
             }
               $('#resultado').hide();
           });
@@ -273,8 +297,6 @@ span#resulatdo{
 });
 
     function guardaMens(){
-      console.log("GUARDA MENSULAIDAD");   
-
       var idcont = $("#idOcul").val();
       var fechPagoM = $("#fechM").val();
       var fechProxPagM = $("#fechProxM").val();
@@ -304,13 +326,42 @@ span#resulatdo{
             if(data != 0){
               $('#res').html("Mensualidad insertada correctamente");
               $('#res').css('color','green');
+              toastr.success('Correctamente', 'MENSUALIDAD INSERTADA', {timeOut: 5000});
 
-              console.log("textStatus: "+textStatus);
-              //$("#resultadoBusqueda").load("pruebas/getPaquetes.php");
+        /*CREAR TABLA DE PAGOS*/
+                var d = '<thead class='+'thead-dark'+'>'+
+                '<tr>'+
+                '<th>Id_Pago</th>'+
+                '<th>F_Pago</th>'+
+                '<th>F_ProxPago </th>'+
+                '</tr>'+
+                '</thead>';
+
+            $.get('pruebas/getJSONpagos.php',{parampagos:peticion2}, function(data) {
+
+              $("span#res").html("<br><h3>Historial de pagos</h3>")
+                var datos = JSON.parse(data);
+                $("#tabla tr").remove(); 
+
+            for (var i = 0; i < datos.length; i++) {
+             d+= '<tr>'+
+             '<td>'+datos[i].id_pago+'</td>'+
+             '<td>'+datos[i].fecha_pago+'</td>'+
+             '<td>'+datos[i].fecha_proxPagoM+'</td>'+
+             '</tr>';
+             }
+
+            $("#tabla").append(d);
+              }); // close getJSON()
+
+
+
             }
             else{
               $('#res').html("Ha ocurrido un error.");
               $('#res').css('color','red');
+              toastr.error('ERROR','No se realizo el guardado', {timeOut: 5000})
+
             }
           });
     }

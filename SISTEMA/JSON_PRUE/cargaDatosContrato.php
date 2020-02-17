@@ -1,3 +1,8 @@
+<link href="//cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/css/toastr.min.css" rel="stylesheet">
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js" integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8=" crossorigin="anonymous"></script>
+<!-- PRUEBAS TOAST  -->
+    <script type="text/javascript" src="//cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/js/toastr.min.js">
+    </script>
 
 <style type="text/css">
   
@@ -224,6 +229,7 @@ span#resulatdo{
             
             var obt = JSON.parse(data);//parseo de JSON a objeto JS
 
+            console.log("objeto obt:"+obt);
             //ciclo para recorrer el arreglo
             for (var i = obt.length - 1; i >= 0; i--) {
               var option = document.createElement('option');              
@@ -260,9 +266,6 @@ span#resulatdo{
             }
               $('#resultado').hide();
           });
-//}else{
-  //  console.log("ln 84 if Oprimio -> "+Chcode);
- // }
 });
 
     function cargaConcepto(){
@@ -279,7 +282,6 @@ span#resulatdo{
 
 
     function guardaCont(){
-      console.log("GUARDA CONTRATO");      
       var idclient = $("#idOcul").val();
       var idoption = $("#concepto").val();
       var fechcont = $("#fech").val();
@@ -299,8 +301,6 @@ span#resulatdo{
         cor="0";
       }
 
-      alert("pgo"+pay);
-
           jQuery.post("api/altas.php",{
             idcli:idclient,
             idopt:idoption,
@@ -313,10 +313,11 @@ span#resulatdo{
             if(data != 0){
               $('#res').html("Contrato No. "+data+" insertado correctamente");
               $('#res').css('color','green');
-              console.log("textStatus: "+textStatus);
+              toastr.success('Correctamente', 'CONTRATO GUARDADO', {timeOut: 5000});
               //$("#resultadoBusqueda").load("pruebas/getPaquetes.php");
             }
             else{
+              toastr.error('ERROR','No se realizo el guardado', {timeOut: 5000})
               $('#res').html("Ha ocurrido un error.");
               $('#res').css('color','red');
             }

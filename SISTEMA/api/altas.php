@@ -3,17 +3,20 @@ require_once '../clases/Conexion.php';
 //$conexion = new Conexion();
 /* PASS phpmyadmin VESTA 0ehn4TNU5I resp_tff
 MYSLDUMP ruta resp -> /home/respSQL/respadmin_tff.sql.gz
-	mysqldump -u root -p --routines=TRUE admin_tff > respadmin_tff.sql
+	mysqldump -u root -p --routines=TRUE db_doctores | gzip > resdoctoresVACIA.sql.gz
 
-	mysqldump -u root -p --routines=TRUE admin_tff | gzip> /home/respSQL/respadmin_tff.sql.gz
+	mysqldump -u root -p --routines=TRUE admindcr | gzip> respadmin_DCR.sql.gz
+
 
 	mysqldump -uusuario -pclaveusuario --routines=TRUE basedatos>archivo.sql
 	mysql -u root -p admin_tff < respadmin_tff.sql
+
 realizar respaldo de aws a local
-rsync -avz respdb@18.228.68.134:/home/respSQL/respadmin_tff.sql.gz /cygdrive/c
+rsync -avz respsql@18.228.68.134:/home/respSQL/respadmin_tff.sql.gz /cygdrive/c
 ajustar db
 1 Agregar campo status a tabla contrato
 2 Agregar relaciones:
+
 alter table contrato add foreign key (id_cli) references cliente (id_cli) on delete cascade on update cascade;
 alter table contrato add foreign key (id_concepto) references conceptos (id_concepto) on delete cascade on update cascade;
 3 crear tabla pagos
@@ -28,6 +31,10 @@ CREATE TABLE IF NOT EXISTS pagos(
 	REFERENCES contrato(id_contrato) 
 	ON UPDATE CASCADE ON DELETE CASCADE
 )ENGINE=INNODB;
+DISABLE CHECK FOREIGN KEY
+--SET FOREIGN_KEY_CHECKS=0;
+
+
 function conexion(){
 //try{
 	$conn = new PDO('mysql:host=localhost;dbname=ff','root','');
