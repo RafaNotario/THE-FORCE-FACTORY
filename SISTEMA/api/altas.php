@@ -1,22 +1,17 @@
-<?php 
+                                          <?php
 require_once '../clases/Conexion.php';
 //$conexion = new Conexion();
 /* PASS phpmyadmin VESTA 0ehn4TNU5I resp_tff
 MYSLDUMP ruta resp -> /home/respSQL/respadmin_tff.sql.gz
 	mysqldump -u root -p --routines=TRUE db_doctores | gzip > resdoctoresVACIA.sql.gz
-
 	mysqldump -u root -p --routines=TRUE admindcr | gzip> respadmin_DCR.sql.gz
-
-
 	mysqldump -uusuario -pclaveusuario --routines=TRUE basedatos>archivo.sql
 	mysql -u root -p admin_tff < respadmin_tff.sql
-
 realizar respaldo de aws a local
 rsync -avz respsql@18.228.68.134:/home/respSQL/respadmin_tff.sql.gz /cygdrive/c
 ajustar db
 1 Agregar campo status a tabla contrato
 2 Agregar relaciones:
-
 alter table contrato add foreign key (id_cli) references cliente (id_cli) on delete cascade on update cascade;
 alter table contrato add foreign key (id_concepto) references conceptos (id_concepto) on delete cascade on update cascade;
 3 crear tabla pagos
@@ -28,7 +23,7 @@ CREATE TABLE IF NOT EXISTS pagos(
 	status varchar(15),
 	PRIMARY KEY (id_pago),
 	FOREIGN KEY (id_contrato)
-	REFERENCES contrato(id_contrato) 
+	REFERENCES contrato(id_contrato)
 	ON UPDATE CASCADE ON DELETE CASCADE
 )ENGINE=INNODB;
 DISABLE CHECK FOREIGN KEY
@@ -58,7 +53,7 @@ if (isset($_POST['funcion']) && !empty($_POST["funcion"])) {
 
 switch ($func) {
 	case 'funcion1':
-		if((isset($_POST['descriP']) && !empty($_POST['descriP'])) && (isset($_POST['costoP']) && !empty($_POST['costoP']))  ){	
+		if((isset($_POST['descriP']) && !empty($_POST['descriP'])) && (isset($_POST['costoP']) && !empty($_POST['costoP']))  ){
 		$nomC=$_POST['nomConc'];
 		$des=$_POST['descriP'];
 		$cos=$_POST['costoP'];
@@ -68,7 +63,7 @@ switch ($func) {
 		echo "0";
 	}
 		break;
-	
+
 	case 'funcion2':
 	if( (isset($_POST['idcli']) && !empty($_POST['idcli'])) &&(isset($_POST['idopt']) && !empty($_POST['idopt']))  ){
 		$idc = $_POST['idcli'];
@@ -76,13 +71,13 @@ switch ($func) {
 		$fec = $_POST['fechc'];
 		$mes = $_POST['mesin'];
 		$pag = $_POST['pag'];
-		
+
 		insertaCont($idc,$ido,$fec,$mes,$pag);
-		
+
 		echo getContrato();
 	}else{
 		echo "0";
-	}		
+	}
 		break;
 
 	case 'funcionMens':
@@ -91,8 +86,8 @@ switch ($func) {
 			$fpm = $_POST['fpm'];
 			$fppm = $_POST['fppm'];
 			$pag = $_POST['pag'];
-			
-			insertaMens($idc,$fpm,$fppm,$pag);		
+
+			insertaMens($idc,$fpm,$fppm,$pag);
 		echo "1";
 	}else{
 		echo "0";
@@ -103,7 +98,7 @@ switch ($func) {
 		if( isset($_POST['param2']) && !empty($_POST['param2']) ){
 		$llego = $_POST['param2'];
 		$retor = get_proximP($llego);
-					
+
 		echo $retor;
 
 	}else{
@@ -115,8 +110,8 @@ switch ($func) {
 		if( (isset($_POST['idcontr']) && !empty($_POST['idcontr'])) &&(isset($_POST['fpm']) && !empty($_POST['fpm']))  ){
 			$idA = $_POST['idcontr'];
 			$fA = $_POST['fpm'];
-			
-			insertAsist($idA,$fA);		
+
+			insertAsist($idA,$fA);
 		echo "1";
 	}else{
 		echo "0";
@@ -127,7 +122,7 @@ switch ($func) {
 		break;
 }
 
-//*****FUNCIONES DE INSERCION 
+//*****FUNCIONES DE INSERCION
 function insertaConceptos($nomC,$descr,$coast){
 	try{
 		$dbh = new Conexion();

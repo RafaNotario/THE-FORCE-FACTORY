@@ -7,10 +7,10 @@ $username = 'dbo706972148';
 $password = 'Jogua1,.-';
 */
 
-$hostname = "localhost";
-$database = "admin_tff";
+$hostname = "localhost";//:3310;
+$database = "ff";
 $username = "root";
-$password = "0ehn4TNU5I";
+$password = "KSWAiFUlPy";
 
 
 

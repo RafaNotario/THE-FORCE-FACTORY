@@ -1,4 +1,4 @@
-<?php 
+<?php
 
 require_once 'Conexion.php';
 
@@ -12,12 +12,17 @@ require_once 'Conexion.php';
 		$datos = $stm->fetch();
 
 			echo $datos[0].'<br/>';
+			?>
+			<pre>
+				<?php print_r($datos); ?>
+
+				<?php var_dump($datos); ?>
+			</pre>
+
+	<?php
 
 	}catch(PDOException $e){
 		echo $e->getMessage();
 	}
 		$dbh = null;
  ?>
-
- DOCUMENTACION
- CAPTCHA

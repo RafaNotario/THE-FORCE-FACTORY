@@ -1,5 +1,5 @@
 
-<?php  
+<?php
 /*ARCHIVO QUE LLENA EL MODAL DE CLIENTES*/
 include("prueba1.php");
 
@@ -12,14 +12,14 @@ $query = "SELECT * FROM cliente where id_cli = '".$var."' ";
 //SELECT * FROM cliente WHERE id_cli = 1 -> id_cli,nombre,apellidos,nick,direccion,celular,correo,rfc,fechaInicio,foto
 
 $response = array();
-52070143 400
+
 
 if($resultado = $mysqli->query($query)) {
 //     $formulario = mysqli_fetch_array($resultado, MYSQLI_ASSOC);
 	$response = mysqli_fetch_array($resultado, MYSQLI_ASSOC);
 }
-	
-//CODIGO DE PRUEBA PARA AGREGAR CAMPOS AL OBJETO JSON 
+
+//CODIGO DE PRUEBA PARA AGREGAR CAMPOS AL OBJETO JSON
 //$response['query'] = $query;
 $response['foto'] = base64_encode($response['foto']);
 

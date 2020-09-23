@@ -7,7 +7,7 @@
 	<title> Login </title>
 
 	<link rel="stylesheet" type="text/css" href="css/normalize.css">
-	
+
 <!--	<link rel="stylesheet" type="text/css" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css ">
 -->
 
@@ -20,7 +20,7 @@
 
 	<script src="https://code.jquery.com/jquery-1.10.2.js"></script>
 
-	<script src="https://www.google.com/recaptcha/api.js" async defer></script>	
+	<script src="https://www.google.com/recaptcha/api.js" async defer></script>
 
 	<link rel="stylesheet" type="text/css" href="css/all.min.css">
 
@@ -33,26 +33,22 @@
 	<header class="header-sitio">
 			<h1> The Force Factory  </h1> <br>
 	</header>
-	
-
 			<h2> Binvenido </h2>
-		
-		<main class="contenedor-flex">	
+		<main class="contenedor-flex">
 			<div class="imagen">
 				<img src="img/sinslog.png" class="img-responsive" alt="Imagen responsive">
 			</div>
-				
 			<div class="formul">
 				<form method="post">
 					<p>Introduzca sus credenciales </p>
 					<div class="form-group">
 						<label for="user"> Usuario o Email </label>
-						<input type="text" name="user" id="user" class="form-control">		
+						<input type="text" name="user" id="user" class="form-control">
 					</div>
-					
+
 					<div class="form-group">
 						<label for="pass"> Contraseña </label>
-						<input type="password" name="pass" id="pass" class="form-control">								
+						<input type="password" name="pass" id="pass" class="form-control">
 					</div>
 				<br>
 				<center>
@@ -64,12 +60,12 @@
 						<div class="form-group">
 							<input type="button" name="login" id="login" value="Loggin" class="btn btn-success">
 						</div>
-						
+
 						<span id="result"></span>
 				</form>
 			</div><!-- .formul -->
 		</main>
-			
+
         <footer>
             <p><i class="far fa-copyright"></i>Todos los derechos reservados</p>
         </footer>
@@ -81,9 +77,9 @@
  		$('#login').click(function()
 		{
 			var user = $('#user').val();
-			var pass = $('#pass').val();			
+			var pass = $('#pass').val();
 			var captch = grecaptcha.getResponse();
-			if($.trim(user).length > 0 && $.trim(pass).length > 0) 
+			if($.trim(user).length > 0 && $.trim(pass).length > 0)
 			{
 				$.ajax({
 					url:"logueame.php",
